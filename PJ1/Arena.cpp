@@ -16,6 +16,7 @@
 using namespace std;
 
 Arena::Arena(int nRows, int nCols)
+    : m_rows(nRows), m_cols(nCols), m_player(nullptr), m_nZombies(0)
 {
     if (nRows <= 0  ||  nCols <= 0  ||  nRows > MAXROWS  ||  nCols > MAXCOLS)
     {
@@ -23,10 +24,6 @@ Arena::Arena(int nRows, int nCols)
              << nCols << "!" << endl;
         exit(1);
     }
-    m_rows = nRows;
-    m_cols = nCols;
-    m_player = nullptr;
-    m_nZombies = 0;
 }
 
 Arena::~Arena()
