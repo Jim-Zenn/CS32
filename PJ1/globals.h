@@ -19,4 +19,7 @@ const int LEFT    = 2;
 const int RIGHT   = 3;
 const int NUMDIRS = 4;
 
+int randInt(int min, int max);
+void clearScreen();
+
 #endif /* !GLOBALS_H */
