@@ -35,20 +35,20 @@ Game::Game(int rows, int cols, int nZombies)
         exit(1);
     }
 
-        // Create arena
+    // Create arena
     m_arena = new Arena(rows, cols);
 
-        // Add player
+    // Add player
     int rPlayer = randInt(1, rows);
     int cPlayer = randInt(1, cols);
     m_arena->addPlayer(rPlayer, cPlayer);
 
-      // Populate with zombies
+    // Populate with zombies
     while (nZombies > 0)
     {
         int r = randInt(1, rows);
         int c = randInt(1, cols);
-          // Don't put a zombie where the player is
+        // Don't put a zombie where the player is
         if (r == rPlayer  &&  c == cPlayer)
             continue;
         m_arena->addZombie(r, c);
@@ -70,9 +70,9 @@ void Game::play()
     while ( ! m_arena->player()->isDead()  &&  m_arena->zombieCount() > 0)
     {
         cout << endl;
-        cout << "Move (u/d/l/r//q): ";
+        cout << "Move (u/d/l/r//h/q): ";
         string action;
-        getline(cin,action);
+        getline(cin, action);
         if (action.size() == 0)  // player stands
             p->stand();
         else
@@ -84,6 +84,11 @@ void Game::play()
                 continue;
               case 'q':
                 return;
+              case 'h':
+                m_arena->history().display();
+                cout << "Press enter to continue." << endl;
+                cin.ignore(10000, '\n');
+                continue;
               case 'u':
               case 'd':
               case 'l':

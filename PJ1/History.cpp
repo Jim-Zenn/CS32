@@ -9,7 +9,6 @@
 #include <cstdlib>
 
 #include "History.h"
-#include "utilities.cpp"
 
 using namespace std;
 

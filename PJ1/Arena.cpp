@@ -16,7 +16,8 @@
 using namespace std;
 
 Arena::Arena(int nRows, int nCols)
-    : m_rows(nRows), m_cols(nCols), m_player(nullptr), m_nZombies(0)
+    : m_rows(nRows), m_cols(nCols), m_player(nullptr),
+      m_nZombies(0), m_history(nRows, nCols)
 {
     if (nRows <= 0  ||  nCols <= 0  ||  nRows > MAXROWS  ||  nCols > MAXCOLS)
     {
@@ -140,6 +141,10 @@ void Arena::display() const
     }
 }
 
+History& Arena::history() {
+    return m_history;
+}
+
 bool Arena::addZombie(int r, int c)
 {
       // Dynamically allocate a new Zombie and add it to the arena
@@ -174,6 +179,7 @@ bool Arena::attackZombieAt(int r, int c, int dir)
     }
     if (k < m_nZombies  &&  m_zombies[k]->getAttacked(dir))  // zombie dies
     {
+        m_history.record(r, c);
         delete m_zombies[k];
         m_zombies[k] = m_zombies[m_nZombies-1];
         m_nZombies--;
