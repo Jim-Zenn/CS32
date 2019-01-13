@@ -31,5 +31,5 @@ class Zombie
     int    m_health;
 };
 
-
 #endif /* !ZOMBIE_H */
+

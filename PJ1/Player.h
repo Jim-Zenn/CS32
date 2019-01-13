@@ -8,6 +8,8 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+class Arena;
+
 class Player
 {
   public:

@@ -23,3 +23,4 @@ int randInt(int min, int max);
 void clearScreen();
 
 #endif /* !GLOBALS_H */
+

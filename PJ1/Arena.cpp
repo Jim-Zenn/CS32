@@ -198,3 +198,4 @@ bool Arena::moveZombies()
       // return true if the player is still alive, false otherwise
     return ! m_player->isDead();
 }
+

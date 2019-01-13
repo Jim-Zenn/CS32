@@ -41,5 +41,5 @@ class Arena
     int     m_nZombies;
 };
 
-
 #endif /* !ARENA_H */
+
