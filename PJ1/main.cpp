@@ -5,19 +5,7 @@
  * Distributed under terms of the MIT license.
  */
 
-
-#include <iostream>
-#include <string>
-#include <utility>
-#include <cstdlib>
-
-#include "globals.h"
-#include "Zombie.h"
-#include "Arena.h"
-#include "Player.h"
 #include "Game.h"
-
-using namespace std;
 
 int main()
 {
