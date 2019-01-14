@@ -1,2 +1,4 @@
 backup/
 **/*.out
+**/.DS_Store
+**/submission.zip
