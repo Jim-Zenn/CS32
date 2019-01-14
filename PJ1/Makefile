@@ -6,7 +6,7 @@
 CC=clang++
 
 all:
-	$(CC) *.cpp -o zombies
+	$(CC) *.cpp -Wall -Wextra -o zombies
 
 
 # vim:ft=make
