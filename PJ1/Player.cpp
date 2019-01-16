@@ -8,7 +8,6 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "globals.h"
 #include "Player.h"
 #include "Arena.h"
 

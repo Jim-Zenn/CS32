@@ -13,6 +13,7 @@
 #include "Game.h"
 #include "Arena.h"
 #include "Player.h"
+#include "History.h"
 
 using namespace std;
 
