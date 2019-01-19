@@ -13,9 +13,8 @@
 using namespace std;
 
 void SSNSet::print() const {
-    unsigned long tmp;
-    int i = 0;
-    while(m_set.get(i++, tmp))
-        cout << tmp << endl;
+  unsigned long tmp;
+  int i = 0;
+  while (m_set.get(i++, tmp))
+    cout << tmp << endl;
 }
-
