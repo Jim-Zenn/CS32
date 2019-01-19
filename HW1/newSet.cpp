@@ -1,11 +1,12 @@
 /*
- * Set.cpp
+ * newSet.cpp
  * Copyright (C) 2019 Jim Zenn <zenn@ucla.edu>
  *
  * Distributed under terms of the MIT license.
  */
 
 #include <iostream>
+#include <cstdlib>
 
 #include "newSet.h"
 
@@ -14,7 +15,11 @@ using namespace std;
 
 Set::Set(const int& capacity)
     : m_capacity(capacity), m_size(0),
-    m_array(new ItemType*[m_capacity]) {};
+    m_array(new ItemType*[m_capacity]) {
+        if (capacity < 0)
+            cout << "A set cannot have negative capacity." << endl;
+            exit();
+    };
 
 Set::Set(const Set& orig)
     : m_capacity(orig.m_capacity), m_size(orig.m_size),
