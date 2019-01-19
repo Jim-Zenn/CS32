@@ -22,12 +22,12 @@ int main()
 {
     cerr << endl;
 
-    test_log("TEST 1: bool Set::Set()", '=');
+    test_log("TEST 1: Set::Set()", '=');
     Set s0;
     test_log("TEST 1: Passed!", '=');
     cerr << endl;
 
-    test_log("TEST 2: bool Set::size() const", '=');
+    test_log("TEST 2: int Set::size() const", '=');
     Set s1;
     assert(s1.size() == 0);
     assert(s1.empty());

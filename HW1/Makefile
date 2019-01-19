@@ -5,8 +5,11 @@
 
 CC=clang++
 
-set:
+Set:
 	$(CC) Set.cpp testSet.cpp -Wall -Wextra -o testSet && ./testSet
+
+SSNset:
+	$(CC) Set.cpp SSNSet.cpp testSSNSet.cpp -Wall -Wextra -o testSSNSet && ./testSSNSet
 
 
 # vim:ft=make
