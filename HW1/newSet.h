@@ -5,8 +5,8 @@
  * Distributed under terms of the MIT license.
  */
 
-#ifndef SET_H
-#define SET_H
+#ifndef NEWSET_H
+#define NEWSET_H
 
 #include <string>
 
@@ -64,5 +64,5 @@ class Set
         ItemType **m_array;
 };
 
-#endif /* !SET_H */
+#endif /* !NEWSET_H */
 
