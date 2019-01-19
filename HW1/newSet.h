@@ -18,7 +18,7 @@ class Set
 {
     public:
         Set(const int& capacity = DEFAULT_MAX_ITEMS);
-          // Create an with given capcacity, otherwise with default 
+          // Create an with given capcacity, otherwise with default
           // capacity.
 
         Set(const Set& orig);
