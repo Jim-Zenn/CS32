@@ -11,7 +11,7 @@ Set:
 newSet:
 	$(CC) newSet.cpp testNewSet.cpp -Wall -Wextra -o testNewSet && ./testNewSet
 
-SSNset:
+SSNSet:
 	$(CC) Set.cpp SSNSet.cpp testSSNSet.cpp -Wall -Wextra -o testSSNSet && ./testSSNSet
 
 newSSNset:
