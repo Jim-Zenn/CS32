@@ -26,7 +26,8 @@ bool Set::insert(const ItemType &value) {
             break;
         }
     }
-    // now everybody to the right, move!
+    // now everybody at the right of spot
+    // (including the one in the spot), move!
     for (int j = size(); j > i; j -= 1) {
         m_array[j] = m_array[j-1];
     }
