@@ -14,6 +14,9 @@ newSet:
 SSNset:
 	$(CC) Set.cpp SSNSet.cpp testSSNSet.cpp -Wall -Wextra -o testSSNSet && ./testSSNSet
 
+newSSNset:
+	$(CC) newSet.cpp SSNSet.cpp testSSNSet.cpp -Wall -Wextra -o testSSNSet && ./testSSNSet
+
 
 # vim:ft=make
 #
