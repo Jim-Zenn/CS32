@@ -5,7 +5,7 @@
  * Distributed under terms of the MIT license.
  */
 
-#include "Set.h"
+#include "newSet.h"
 #include <iostream>
 #include <string>
 #include <cassert>
@@ -24,6 +24,7 @@ int main()
 
     test_log("TEST 1: Set::Set()", '=');
     Set s0;
+    Set s7(1);
     test_log("TEST 1: Passed!", '=');
     cerr << endl;
 
@@ -126,6 +127,7 @@ int main()
     cerr << endl;
 
     test_log("TEST 6: void swap(Set& other)", '=');
+    test_log("PART 1: swapping different sized sets test", ' ');
     s5.swap(s4);
     assert(s5.size() == 0);
     assert(! s5.get(0, tmp));
@@ -145,6 +147,17 @@ int main()
     assert(tmp == "8");
     assert(! s4.get(4, tmp));
     assert(tmp == "8");
+    test_log("passed!", ' ');
+    test_log("PART 2: swapping different capacity sets test", ' ');
+    Set s8(2);
+    Set s9(1);
+    s8.swap(s9);
+    assert(s8.insert("1"));
+    assert(! s8.insert("2"));
+    assert(s9.insert("2"));
+    assert(s9.insert("3"));
+    assert(! s9.insert("4"));
+    test_log("passed!", ' ');
     test_log("TEST 6: Passed!", '=');
     cerr << endl;
 

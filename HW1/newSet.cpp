@@ -11,6 +11,24 @@
 
 using namespace std;
 
+
+Set::Set(const int& capacity)
+    : m_capacity(capacity), m_size(0),
+    m_array(new ItemType*[m_capacity]) {};
+
+Set::Set(const Set& orig)
+    : m_capacity(orig.m_capacity), m_size(orig.m_size),
+    m_array(new ItemType*[m_capacity]) {
+        for (int i = 0; i < orig.size(); i ++)
+            m_array[i] = new ItemType(*orig.m_array[i]);
+}
+
+Set::~Set() {
+    for (int i = 0 ; i < size(); i += 1)
+        delete m_array[i];
+    delete [] m_array;
+};
+
 bool Set::insert(const ItemType &value) {
     if (contains(value))
         // the value is already present in the set

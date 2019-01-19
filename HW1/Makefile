@@ -8,6 +8,9 @@ CC=clang++
 Set:
 	$(CC) Set.cpp testSet.cpp -Wall -Wextra -o testSet && ./testSet
 
+newSet:
+	$(CC) newSet.cpp testNewSet.cpp -Wall -Wextra -o testNewSet && ./testNewSet
+
 SSNset:
 	$(CC) Set.cpp SSNSet.cpp testSSNSet.cpp -Wall -Wextra -o testSSNSet && ./testSSNSet
 

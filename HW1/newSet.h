@@ -17,20 +17,14 @@ using ItemType = std::string;
 class Set
 {
     public:
-        Set(const int& capacity = DEFAULT_MAX_ITEMS)
-            : m_capacity(capacity), m_size(0),
-            m_array(new ItemType*[m_capacity]) {};
-          // Create an empty set (i.e., one with no items).
+        Set(const int& capacity = DEFAULT_MAX_ITEMS);
+          // Create an with given capcacity, otherwise with default 
+          // capacity.
 
-        Set(const Set& orig)
+        Set(const Set& orig);
           // Copy the orig set.
-            : m_capacity(orig.m_capacity), m_size(orig.m_size),
-            m_array(new ItemType*[m_capacity]) {
-                for (int i = 0; i < orig.size(); i ++)
-                    m_array[i] = new ItemType(*orig.m_array[i]);
-        }
 
-        ~Set() { delete [] m_array; };
+        ~Set();
           // Destruct the set.
 
         bool empty() { return m_size == 0; };
