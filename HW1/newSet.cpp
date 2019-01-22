@@ -69,6 +69,7 @@ bool Set::erase(const ItemType &value) {
     // value not present
     return false;
   m_size -= 1;
+  delete m_array[i];
   for (; i < size(); i += 1) {
     m_array[i] = m_array[i + 1];
   }
@@ -89,7 +90,7 @@ bool Set::get(int i, ItemType &value) const {
   if (i < 0 || i >= size())
     // out of range
     return false;
-  value = ItemType(*m_array[i]);
+  value = *m_array[i];
   return true;
 }
 
