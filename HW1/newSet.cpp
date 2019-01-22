@@ -27,6 +27,24 @@ Set::Set(const Set &orig)
     m_array[i] = new ItemType(*orig.m_array[i]);
 }
 
+Set &Set::operator=(const Set &src) {
+  if (&src == this)
+    // the set is being assigned to itself
+    return *this;
+  // destroy the previous array
+  for (int i = 0; i < size(); i += 1)
+    delete m_array[i];
+  delete[] m_array;
+  // assign the new values
+  m_capacity = src.m_capacity;
+  m_size = src.m_size;
+  // create the new array
+  m_array = new ItemType *[m_capacity];
+  for (int i = 0; i < src.size(); i++)
+    m_array[i] = new ItemType(*src.m_array[i]);
+  return *this;
+}
+
 Set::~Set() {
   for (int i = 0; i < size(); i += 1)
     delete m_array[i];

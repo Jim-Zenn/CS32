@@ -146,30 +146,32 @@ int main() {
   cerr << endl;
 
   test_log("TEST 7 Set Set::&operator= (const Set &old) [Assignment Op]", '=');
-  Set s8, s9;
-  s1.insert("3");
-  s2 = s1;  // assignment operator called here
-  assert(s2.contains("3"));
-  assert(s2.erase("3"));
-  assert(s1.contains("3"));
+  Set s18, s19;
+  s18.insert("3");
+  s19 = s18;  // assignment operator called here
+  assert(s19.contains("3"));
+  assert(s19.erase("3"));
+  assert(s18.contains("3"));
   test_log("TEST 7: Passed!", '=');
   cerr << endl;
 
   test_log("TEST 8 Set::Set(const Set &old) [Copy constuctor]", '=');
-  Set s10;
-  s10.insert("10");
-  s10.insert("11");
-  Set s11 = s10;  // copy constructor called here
-  assert(s11.erase("10"));
+  Set s16;
+  s16.insert("10");
+  s16.insert("11");
+  Set s17 = s16;  // copy constructor called here
+  assert(s17.erase("10"));
   ItemType t;
-  assert(s10.get(0, t));
-  assert(t == "11");
-  assert(s10.size() == 1);
-  assert(s11.contains("11"));
-  assert(!s11.contains("10"));
+  assert(s16.get(0, t));
+  assert(t.compare("11"));
+  assert(s16.size() == 2);
+  assert(s17.size() == 1);
+  assert(s17.contains("11"));
+  assert(!s17.contains("10"));
   test_log("TEST 8: Passed!", '=');
   cerr << endl;
 
   test_log("All tests passed!", '*');
   cerr << endl;
 }
+
