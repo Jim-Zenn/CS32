@@ -127,3 +127,10 @@ void Set::swap(Set &other) {
   m_capacity = other.m_capacity;
   other.m_capacity = tmp;
 }
+
+void Set::dump() const {
+  for (int i = 0; i < size(); i += 1) {
+    cerr << *m_array[i] << " ";
+  }
+  cerr << endl;
+}

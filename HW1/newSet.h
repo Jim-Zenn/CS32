@@ -64,6 +64,9 @@ public:
   void swap(Set &other);
   // Exchange the contents of this set with the other one.
 
+  void dump() const;
+  // Writes the items in the array to stderr.
+
 private:
   bool is_full() { return m_size >= m_capacity; };
   // Return whether the set is full.
