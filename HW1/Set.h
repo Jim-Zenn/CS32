@@ -12,8 +12,13 @@
 
 const int DEFAULT_MAX_ITEMS = 250;
 
-/* using ItemType = unsigned long; */
+/* #define ITEMTYPE_UNSIGNED_LONG */
+
+#ifdef ITEMTYPE_UNSIGNED_LONG
+using ItemType = unsigned long;
+#else
 using ItemType = std::string;
+#endif
 
 class Set {
 public:

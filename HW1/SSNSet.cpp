@@ -8,7 +8,6 @@
 #include <iostream>
 
 #include "SSNSet.h"
-#include "Set.h"
 
 using namespace std;
 

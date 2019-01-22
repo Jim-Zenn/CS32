@@ -8,7 +8,13 @@
 #ifndef SSNSET_H
 #define SSNSET_H
 
+/* #define USE_NEW_SET */
+
+#ifdef USE_NEW_SET
+#include "newSet.h"
+#else
 #include "Set.h"
+#endif
 
 class SSNSet {
 public:

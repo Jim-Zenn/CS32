@@ -6,16 +6,16 @@
 CC=clang++
 
 Set:
-	$(CC) Set.cpp testSet.cpp -Wall -Wextra -o testSet && ./testSet
+	$(CC) testSet.cpp Set.cpp -Wall -Wextra -o testSet && ./testSet
 
 newSet:
-	$(CC) newSet.cpp testNewSet.cpp -Wall -Wextra -o testNewSet && ./testNewSet
+	$(CC) testNewSet.cpp newSet.cpp -Wall -Wextra -o testNewSet && ./testNewSet
 
 SSNSet:
-	$(CC) Set.cpp SSNSet.cpp testSSNSet.cpp -Wall -Wextra -o testSSNSet && ./testSSNSet
+	$(CC) testSSNSet.cpp Set.cpp SSNSet.cpp -Wall -Wextra -o testSSNSet && ./testSSNSet
 
-newSSNset:
-	$(CC) newSet.cpp SSNSet.cpp testSSNSet.cpp -Wall -Wextra -o testSSNSet && ./testSSNSet
+newSSNSet:
+	$(CC) testSSNSet.cpp newSet.cpp SSNSet.cpp -Wall -Wextra -o testSSNSet && ./testSSNSet
 
 
 # vim:ft=make
