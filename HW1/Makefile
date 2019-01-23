@@ -9,7 +9,7 @@ Set:
 	$(CC) testSet.cpp Set.cpp -Wall -Wextra -o testSet && ./testSet
 
 newSet:
-	$(CC) testNewSet.cpp newSet.cpp -Wall -Wextra -o testNewSet && ./testNewSet
+	$(CC) testnewSet.cpp newSet.cpp -Wall -Wextra -o testnewSet && ./testnewSet
 
 SSNSet:
 	$(CC) testSSNSet.cpp Set.cpp SSNSet.cpp -Wall -Wextra -o testSSNSet && ./testSSNSet
