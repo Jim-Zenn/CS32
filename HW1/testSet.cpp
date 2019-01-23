@@ -146,12 +146,35 @@ int main() {
   cerr << endl;
 
   test_log("TEST 7 Set Set::&operator= (const Set &old) [Assignment Op]", '=');
-  Set s18, s19;
-  s18.insert("3");
-  s19 = s18;  // assignment operator called here
-  assert(s19.contains("3"));
-  assert(s19.erase("3"));
-  assert(s18.contains("3"));
+  Set assigner, assignee;
+  test_log("PART 1: memory exchanging test", ' ');
+  assigner.insert("1");
+  assignee = assigner;  // assignment operator called here
+  assert(! assignee.insert("1"));
+  assert(assignee.insert("2"));
+  assert(assignee.insert("3"));
+  assert(assignee.insert("4"));
+  assert(assignee.insert("5"));
+  assert(assignee.insert("6"));
+  assert(assignee.insert("7"));
+  assert(assignee.insert("8"));
+  assert(assignee.insert("9"));
+  test_log("passed!", ' ');
+  test_log("PART 2: deep copy test", ' ');
+  ItemType t2 = "no!";
+  assert(assignee.get(0, t2));
+  cout << t2 << endl;
+  assert(t2.compare("1") == 0);
+  assert(assignee.get(8, t2));
+  cout << t2 << endl;
+  assert(t2.compare("9") == 0);
+  assert(! assignee.get(9, t2));  // should be checking an invalid index
+  assert(t2.compare("9") == 0);  // t2's value shouldn't change at this point
+  assert(! assigner.contains("3"));  // make sure they are not sharing memory!
+  assert(assignee.contains("1"));
+  assert(assignee.erase("1"));
+  assert(assigner.contains("1"));
+  test_log("passed!", ' ');
   test_log("TEST 7: Passed!", '=');
   cerr << endl;
 

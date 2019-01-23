@@ -38,15 +38,15 @@ bool Set::insert(const ItemType &value) {
 }
 
 bool Set::erase(const ItemType &value) {
+  if (! contains(value))
+    // the value is not present
+    return false;
   int i;
   for (i = 0; i < size(); i += 1) {
     if (m_array[i] == value)
       // found the value
       break;
   }
-  if (i == size())
-    // value not present
-    return false;
   m_size -= 1;
   for (; i < size(); i += 1) {
     m_array[i] = m_array[i + 1];
