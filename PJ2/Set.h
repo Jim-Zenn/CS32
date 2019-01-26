@@ -98,4 +98,14 @@ private:
 
 };
 
+void unite(const Set& s1, const Set& s2, Set& result);
+// Returns result set that contains one copy of each of the values that appear 
+// in s1 or s2 or both. This function does not assume result is empty. Hence it
+// will reset the result at the beginning.
+
+void subtract(const Set& s1, const Set& s2, Set& result);
+// Returns result set that contains one copy of each of the values that appear 
+// in s1 but not s2. This function does not assume result is empty. Hence it
+// will reset the result at the beginning.
+
 #endif /* !SET_H */

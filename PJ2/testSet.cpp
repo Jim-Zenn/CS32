@@ -198,6 +198,38 @@ int main() {
   test_log("TEST 8: Passed!", '=');
   cerr << endl;
 
+  test_log("TEST 9 unite and subtract", '=');
+  test_log("PART 1: unite functionality test", ' ');
+  Set s18;
+  s18.insert("12");
+  Set s19 = s18;  // copy constructor called here
+  s19.insert("11");
+  s18.insert("10");
+  Set united;
+  unite(s18, s19, united);
+  assert(united.size() == 3);
+  ItemType t3;
+  assert(united.get(0, t3));
+  assert(t3 == "10");
+  assert(united.get(1, t3));
+  assert(t3 == "11");
+  assert(united.get(2, t3));
+  assert(t3 == "12");
+  assert(! united.get(3, t3));
+  assert(t3 == "12");
+  test_log("passed!", ' ');
+  test_log("PART 2: subtract functionality test", ' ');
+  Set subtracted;
+  subtract(s18, s19, subtracted);
+  assert(subtracted.size() == 1);
+  assert(subtracted.get(0, t3));
+  assert(t3 == "10");
+  assert(! subtracted.get(1, t3));
+  assert(t3 == "10");
+  test_log("passed!", ' ');
+  test_log("TEST 9: Passed!", '=');
+  cerr << endl;
+
   test_log("All tests passed!", '*');
   cerr << endl;
 }

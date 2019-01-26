@@ -143,3 +143,29 @@ void Set::dump() const {
   } while (curr != m_sentinel);
   cerr << endl;
 }
+
+void unite(const Set& s1, const Set& s2, Set& result) {
+  result = Set();
+  ItemType tmp;
+  for (int i = 0; i < s1.size(); i += 1) {
+    s1.get(i, tmp);
+    result.insert(tmp);
+  }
+  for (int i = 0; i < s2.size(); i += 1) {
+    s2.get(i, tmp);
+    result.insert(tmp);
+  }
+}
+
+void subtract(const Set& s1, const Set& s2, Set& result) {
+  result = Set();
+  ItemType tmp;
+  for (int i = 0; i < s1.size(); i += 1) {
+    s1.get(i, tmp);
+    result.insert(tmp);
+  }
+  for (int i = 0; i < s2.size(); i += 1) {
+    s2.get(i, tmp);
+    result.erase(tmp);
+  }
+}
