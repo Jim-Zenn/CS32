@@ -2,3 +2,4 @@ backup/
 **/*.out
 **/Submission.zip
 **/.DS_Store
+**/.vscode
