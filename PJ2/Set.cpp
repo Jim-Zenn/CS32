@@ -6,127 +6,106 @@
  */
 
 #include <iostream>
-#include <cassert>
 
 #include "Set.h"
 
 using namespace std;
 
-Set::Set(const Set &src) : m_sentinel(new Node), m_size(src.size())
+Set::Set() : m_guard(new Node), m_size(0)
+// Create an empty set (i.e., one with no items).
 {
-  Node *src_curr = src.m_sentinel->next;
-  Node *curr = m_sentinel;
+  // initialize the circular linked list.
+  m_guard->next = m_guard;
+  m_guard->prev = m_guard;
+}
 
-  while (src_curr != src.m_sentinel) {
-    Node *node = new Node;
-    node->value = src_curr->value;
-    node->prev = curr;
-    node->next = m_sentinel;
-    curr->next = node;
-    m_sentinel->prev = node;
-
-    curr = node;
-    src_curr = src_curr->next;
+Set::Set(const Set &src) : Set()
+{
+  Node *p = m_guard;
+  // iterate through the source set
+  for (Node *sp = src.m_guard->next; sp != src.m_guard; sp = sp->next) {
+    // for each node of the source set, insert a node with the same value and 
+    // append it to this set.
+    insertNodeAfter(sp->value, p);
+    p = p->next;
   }
 }
 
-Set::~Set() 
+Set::~Set()
 {
-  Node *curr = m_sentinel->next;
-  Node *next;
-  while (curr != m_sentinel) {
-    next = curr->next;
-    delete curr;
-    curr = next;
-  }
-  delete m_sentinel;
+  clear();  // clear the whole set
+  delete m_guard;  // remove the guard node
 }
 
-Set &Set::operator= (const Set &src)
-// Copy all the nodes from the src and assign to this.
+Set &Set::operator=(const Set &src)
 {
-  // first remove all nodes
-  Node *curr = m_sentinel->next;
-  Node *next;
-  while (curr != m_sentinel) {
-    next = curr->next;
-    delete curr;
-    curr = next;
+  if (&src == this)
+    // the source is this set itself
+    return *this;
+  clear();  // clear the whole set
+  Node *p = m_guard;
+  // iterate through the source set's linked list
+  for (Node *sp = src.m_guard->next; sp != src.m_guard; sp = sp->next) {
+    // for each node of the source set, insert a node with the same value and 
+    // append it to this set.
+    insertNodeAfter(sp->value, p);
+    p = p->next;
   }
-  Node *src_curr = src.m_sentinel->next;
-  curr = m_sentinel;
-
-  // copy nodes over from src.
-  while (src_curr != src.m_sentinel) {
-    Node *node = new Node;
-    node->value = src_curr->value;
-    node->prev = curr;
-    node->next = m_sentinel;
-    curr->next = node;
-    m_sentinel->prev = node;
-
-    curr = node;
-    src_curr = src_curr->next;
-  }
-  m_size = src.size();
-
   return *this;
 }
 
-bool Set::insert(const ItemType &value) {
-  Node *curr = m_sentinel->next;
-  while (curr != m_sentinel && curr->value <= value) {
-    if (curr->value == value)
-      // it is already in the set
+bool Set::insert(const ItemType &value)
+{
+  Node *p;
+  // iterate through the set to find the right spot
+  for (p = m_guard->next; p != m_guard; p = p->next) {
+    if (p->value == value)
+      // the given value is already in this set
       return false;
-    curr = curr->next;
+    else if (p->value > value)
+      break;
   }
-  Node *node = new Node;
-  node->value = value;
-  // linking
-  node->prev = curr->prev;
-  node->next = curr;
-  node->prev->next = node;
-  curr->prev = node;
-  m_size += 1;
+  // found the spot to insert the new node
+  insertNodeBefore(value, p);
   return true;
 }
 
-bool Set::erase(const ItemType &value) {
-  Node *curr = findNode(value);
-  if (curr == m_sentinel)
-    // Not found
-    return false;
-  // Found. Now remove the node.
-  curr->prev->next = curr->next;
-  curr->next->prev = curr->prev;
-  delete curr;
-  m_size -= 1;
-  return true;
+bool Set::erase(const ItemType &value)
+{
+  // If the given value is not found in the set, `getNodeWith` would return the
+  // guard node, which signify's "not found".  In this case, `removeNode` would
+  // do nothing and return false.  Otherwise, `getNodeWith` would return the
+  // node with the given value, and `removeNode` would remove this node and
+  // return true.
+  return removeNode(getNodeWith(value));
 }
 
-bool Set::contains(const ItemType &value) const {
-  Node *curr = findNode(value);
-  return curr != m_sentinel;
+bool Set::contains(const ItemType &value) const
+{
+  // If the given value is not found in the set, `getNodeWith` would return the
+  // guard node, which signify's "not found".
+  return getNodeWith(value) != m_guard;
 }
 
-bool Set::get(int i, ItemType &receiver) const {
+bool Set::get(int i, ItemType &value) const
+{
   if (i < 0 || i >= size())
+    // the given index is not valid
     return false;
-  Node *curr = m_sentinel;
-  for (int j = 0; j <= i; j += 1) {
-    curr = curr->next;
-  }
-  receiver = curr->value;
+  Node *p = m_guard->next;
+  for (; i > 0; i -= 1) 
+    p = p->next;
+  value = p->value;
   return true;
 }
 
-void Set::swap(Set &other) {
-  // swap dllist
+void Set::swap(Set &other)
+{
+  // swap the guard nodes and all the nodes that precedes them
   Node *tmp_node;
-  tmp_node = m_sentinel;
-  m_sentinel = other.m_sentinel;
-  other.m_sentinel = tmp_node;
+  tmp_node = m_guard;
+  m_guard = other.m_guard;
+  other.m_guard = tmp_node;
 
   // swap size
   int tmp_int;
@@ -135,36 +114,97 @@ void Set::swap(Set &other) {
   other.m_size = tmp_int;
 }
 
-void Set::dump() const {
-  Node *curr = m_sentinel;
+void Set::dump() const
+{
+  Node *p = m_guard;
   do {
-    curr = m_sentinel->next;
-    cout << curr->value << endl;
-  } while (curr != m_sentinel);
+    p = m_guard->next;
+    cerr << p->value << endl;
+  } while (p != m_guard);
   cerr << endl;
 }
 
-void unite(const Set& s1, const Set& s2, Set& result) {
+void Set::clear() {
+  Node *p = m_guard->next;
+  Node *next;
+  while (p != m_guard) {
+    next = p->next;
+    removeNode(p);
+    p = next;
+  }
+}
+
+Set::Node *Set::getNodeWith(const ItemType &value) const
+{
+  Node *p = m_guard;
+  do {
+    p = p->next;
+    if (p->value == value)
+      // Found it
+      return p;
+  } while (p != m_guard);
+  return m_guard;
+}
+
+bool Set::removeNode(Node *node) {
+  if (node == m_guard)
+    // the given node is the guard node
+    return false;
+  // detach the node from the linked list
+  node->prev->next = node->next;
+  node->next->prev = node->prev;
+  // destruct the node
+  delete node;
+  // reduce the size of the set by 1
+  m_size -= 1;
+  return true;
+}
+
+void Set::insertNodeAfter(ItemType value, Node *p) 
+{
+  Node *node = new Node;
+  node->value = value;
+  // link the node's prev and next pointer first
+  node->prev = p;
+  node->next = p->next;
+  // link node's prev's next and its next's prev to itself
+  node->prev->next = node;
+  node->next->prev = node;
+  m_size += 1;
+}
+
+void Set::insertNodeBefore(ItemType value, Node *p) 
+{
+  insertNodeAfter(value, p->prev);
+}
+
+void unite(const Set &s1, const Set &s2, Set &result)
+{
   result = Set();
   ItemType tmp;
-  for (int i = 0; i < s1.size(); i += 1) {
+  for (int i = 0; i < s1.size(); i += 1)
+  {
     s1.get(i, tmp);
     result.insert(tmp);
   }
-  for (int i = 0; i < s2.size(); i += 1) {
+  for (int i = 0; i < s2.size(); i += 1)
+  {
     s2.get(i, tmp);
     result.insert(tmp);
   }
 }
 
-void subtract(const Set& s1, const Set& s2, Set& result) {
+void subtract(const Set &s1, const Set &s2, Set &result)
+{
   result = Set();
   ItemType tmp;
-  for (int i = 0; i < s1.size(); i += 1) {
+  for (int i = 0; i < s1.size(); i += 1)
+  {
     s1.get(i, tmp);
     result.insert(tmp);
   }
-  for (int i = 0; i < s2.size(); i += 1) {
+  for (int i = 0; i < s2.size(); i += 1)
+  {
     s2.get(i, tmp);
     result.erase(tmp);
   }
