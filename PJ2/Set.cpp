@@ -160,7 +160,7 @@ bool Set::removeNode(Node *node) {
   return true;
 }
 
-void Set::insertNodeAfter(ItemType value, Node *p) 
+void Set::insertNodeAfter(const ItemType &value, Node *p) 
 {
   Node *node = new Node;
   node->value = value;
@@ -170,42 +170,49 @@ void Set::insertNodeAfter(ItemType value, Node *p)
   // link node's prev's next and its next's prev to itself
   node->prev->next = node;
   node->next->prev = node;
+  // increase the size of the set by 1
   m_size += 1;
 }
 
-void Set::insertNodeBefore(ItemType value, Node *p) 
+void Set::insertNodeBefore(const ItemType &value, Node *p) 
 {
+  // This is essentially the same as insertNodeAfter, except that this function
+  // insert the new node before the given positioning node.
   insertNodeAfter(value, p->prev);
 }
 
 void unite(const Set &s1, const Set &s2, Set &result)
 {
-  result = Set();
+  // reset the result set using assignment operator
+  Set r;
   ItemType tmp;
-  for (int i = 0; i < s1.size(); i += 1)
-  {
+  // try to insert all s1's elements into the result
+  for (int i = 0; i < s1.size(); i += 1) {
     s1.get(i, tmp);
-    result.insert(tmp);
+    r.insert(tmp);
   }
-  for (int i = 0; i < s2.size(); i += 1)
-  {
+  // try to insert all s2's elements into the result
+  for (int i = 0; i < s2.size(); i += 1) {
     s2.get(i, tmp);
-    result.insert(tmp);
+    r.insert(tmp);
   }
+  result = r;
 }
 
 void subtract(const Set &s1, const Set &s2, Set &result)
 {
-  result = Set();
+  // Reset the result set using assignment operator
+  Set r;
   ItemType tmp;
-  for (int i = 0; i < s1.size(); i += 1)
-  {
+  // try to insert all s1's elements into the result
+  for (int i = 0; i < s1.size(); i += 1) {
     s1.get(i, tmp);
-    result.insert(tmp);
+    r.insert(tmp);
   }
-  for (int i = 0; i < s2.size(); i += 1)
-  {
+  // try to remove all elements that appears in from the result
+  for (int i = 0; i < s2.size(); i += 1) {
     s2.get(i, tmp);
-    result.erase(tmp);
+    r.erase(tmp);
   }
+  result = r;
 }

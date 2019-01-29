@@ -77,11 +77,11 @@ private:
   // otherwise, remove and destruct the node, reduce the set's size by 1, and 
   // return true.
 
-  void insertNodeAfter(ItemType value, Node *pos);
+  void insertNodeAfter(const ItemType &value, Node *pos);
   // Create a new node with the given value, insert the new node after the
   // positioning node with proper linking, and increase the set's size by 1.
 
-  void insertNodeBefore(ItemType value, Node *pos);
+  void insertNodeBefore(const ItemType &value, Node *pos);
   // Create a new node with the given value, insert the new node before the
   // positioning node with proper linking, and increase the set's size by 1.
 };
