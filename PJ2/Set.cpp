@@ -23,7 +23,7 @@ Set::Set(const Set &src) : Set()
 {
   // iterate through the source set
   for (Node *sp = src.m_guard->next; sp != src.m_guard; sp = sp->next) {
-    // for each node of the source set, insert a node with the same value and 
+    // for each node of the source set, insert a node with the same value and
     // append it to this set.
     insertNodeBefore(sp->val, m_guard);
   }
@@ -43,7 +43,7 @@ Set &Set::operator=(const Set &src)
   clear();  // clear the whole set
   // iterate through the source set
   for (Node *sp = src.m_guard->next; sp != src.m_guard; sp = sp->next) {
-    // for each node of the source set, insert a node with the same value and 
+    // for each node of the source set, insert a node with the same value and
     // append it to this set.
     insertNodeBefore(sp->val, m_guard);
   }
@@ -89,7 +89,7 @@ bool Set::get(int i, ItemType &val) const
     // the given index is not valid
     return false;
   Node *p = m_guard->next;
-  for (; i > 0; i -= 1) 
+  for (; i > 0; i -= 1)
     p = p->next;
   val = p->val;
   return true;
@@ -97,7 +97,7 @@ bool Set::get(int i, ItemType &val) const
 
 void Set::swap(Set &other)
 {
-  // swap the guard nodes and all the nodes that precedes them
+  // swap the guard nodes and all the nodes that follow them
   Node *tmp_node;
   tmp_node = m_guard;
   m_guard = other.m_guard;
@@ -149,7 +149,7 @@ bool Set::removeNode(Node *node) {
   return true;
 }
 
-void Set::insertNodeAfter(const ItemType &val, Node *p) 
+void Set::insertNodeAfter(const ItemType &val, Node *p)
 {
   Node *node = new Node;
   node->val = val;
@@ -163,7 +163,7 @@ void Set::insertNodeAfter(const ItemType &val, Node *p)
   m_size += 1;
 }
 
-void Set::insertNodeBefore(const ItemType &val, Node *p) 
+void Set::insertNodeBefore(const ItemType &val, Node *p)
 {
   // This is essentially the same as insertNodeAfter, except that this function
   // insert the new node before the given positioning node.
