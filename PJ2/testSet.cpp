@@ -1,5 +1,5 @@
 /*
- * main.cpp
+ * testSet.cpp
  * Copyright (C) 2019 Jim Zenn <zenn@ucla.edu>
  *
  * Distributed under terms of the MIT license.
@@ -419,6 +419,10 @@ int main() {
   test_log("passed!", ' ');
   test_log("TEST 8: Passed!", '=');
   cerr << endl;
+
+  test_log("TEST 9: Dump Test");
+  united.dump();
+  subtracted.dump();
 
   test_log("All tests passed!", '*');
   cerr << endl;

@@ -32,19 +32,19 @@ public:
   int size() const { return m_size; }
   // Return the number of items in the set.
 
-  bool insert(const ItemType &value);
+  bool insert(const ItemType &val);
   // Insert value into the set if not already present.  Return true if the value
   // was actually inserted; otherwise, since the value must be already present,
   // return false.
 
-  bool erase(const ItemType &value);
+  bool erase(const ItemType &val);
   // Remove the value from the set if present.  Return true if the value was 
   // removed; otherwise, leave the set unchanged and return false.
 
-  bool contains(const ItemType &value) const;
+  bool contains(const ItemType &val) const;
   // Return true if the value is in the set, otherwise false.
 
-  bool get(int i, ItemType &value) const;
+  bool get(int i, ItemType &val) const;
   // If 0 <= i < size(), copy into value the item in the set that is strictly 
   // greater than exactly i items in the set and return true. Otherwise, leave 
   // value unchanged and return false.
@@ -53,11 +53,11 @@ public:
   // Exchange the contents of this set with the other one.
 
   void dump() const;
-  // Writes the items in the array to stderr.
+  // Writes the items in the array to cerr.
 
 private:
   struct Node {
-    ItemType value;
+    ItemType val;
     Node *prev, *next;
   };
 
@@ -65,23 +65,24 @@ private:
   int m_size;
 
   void clear();
-  // Remove all nodes in the set.
+  // Remove all nodes except the guard node in the set. Note that it does not 
+  // remove the guard node; it only resets the set to the initial status.
 
-  Node *getNodeWith(const ItemType &value) const;
+  Node *getNodeWith(const ItemType &val) const;
   // Return the node in the set with the given value.  If a node with the given
-  // value exists, return the pointer to that node; otherwise, return the guard
-  // node instead.
+  // value exists, return the pointer to that node; otherwise, if no node with 
+  // the value is found, return the guard node instead.
 
   bool removeNode(Node *node);
   // Remove the given node.  If the given node is the guard node, return false;
   // otherwise, remove and destruct the node, reduce the set's size by 1, and 
   // return true.
 
-  void insertNodeAfter(const ItemType &value, Node *pos);
+  void insertNodeAfter(const ItemType &val, Node *pos);
   // Create a new node with the given value, insert the new node after the
   // positioning node with proper linking, and increase the set's size by 1.
 
-  void insertNodeBefore(const ItemType &value, Node *pos);
+  void insertNodeBefore(const ItemType &val, Node *pos);
   // Create a new node with the given value, insert the new node before the
   // positioning node with proper linking, and increase the set's size by 1.
 };

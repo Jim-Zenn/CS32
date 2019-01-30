@@ -21,13 +21,11 @@ Set::Set() : m_guard(new Node), m_size(0)
 
 Set::Set(const Set &src) : Set()
 {
-  Node *p = m_guard;
   // iterate through the source set
   for (Node *sp = src.m_guard->next; sp != src.m_guard; sp = sp->next) {
     // for each node of the source set, insert a node with the same value and 
     // append it to this set.
-    insertNodeAfter(sp->value, p);
-    p = p->next;
+    insertNodeBefore(sp->val, m_guard);
   }
 }
 
@@ -43,51 +41,49 @@ Set &Set::operator=(const Set &src)
     // the source is this set itself
     return *this;
   clear();  // clear the whole set
-  Node *p = m_guard;
-  // iterate through the source set's linked list
+  // iterate through the source set
   for (Node *sp = src.m_guard->next; sp != src.m_guard; sp = sp->next) {
     // for each node of the source set, insert a node with the same value and 
     // append it to this set.
-    insertNodeAfter(sp->value, p);
-    p = p->next;
+    insertNodeBefore(sp->val, m_guard);
   }
   return *this;
 }
 
-bool Set::insert(const ItemType &value)
+bool Set::insert(const ItemType &val)
 {
   Node *p;
   // iterate through the set to find the right spot
   for (p = m_guard->next; p != m_guard; p = p->next) {
-    if (p->value == value)
+    if (p->val == val)
       // the given value is already in this set
       return false;
-    else if (p->value > value)
+    if (p->val > val)
       break;
   }
   // found the spot to insert the new node
-  insertNodeBefore(value, p);
+  insertNodeBefore(val, p);
   return true;
 }
 
-bool Set::erase(const ItemType &value)
+bool Set::erase(const ItemType &val)
 {
   // If the given value is not found in the set, `getNodeWith` would return the
   // guard node, which signify's "not found".  In this case, `removeNode` would
   // do nothing and return false.  Otherwise, `getNodeWith` would return the
   // node with the given value, and `removeNode` would remove this node and
   // return true.
-  return removeNode(getNodeWith(value));
+  return removeNode(getNodeWith(val));
 }
 
-bool Set::contains(const ItemType &value) const
+bool Set::contains(const ItemType &val) const
 {
   // If the given value is not found in the set, `getNodeWith` would return the
   // guard node, which signify's "not found".
-  return getNodeWith(value) != m_guard;
+  return getNodeWith(val) != m_guard;
 }
 
-bool Set::get(int i, ItemType &value) const
+bool Set::get(int i, ItemType &val) const
 {
   if (i < 0 || i >= size())
     // the given index is not valid
@@ -95,7 +91,7 @@ bool Set::get(int i, ItemType &value) const
   Node *p = m_guard->next;
   for (; i > 0; i -= 1) 
     p = p->next;
-  value = p->value;
+  val = p->val;
   return true;
 }
 
@@ -116,33 +112,26 @@ void Set::swap(Set &other)
 
 void Set::dump() const
 {
-  Node *p = m_guard;
-  do {
-    p = m_guard->next;
-    cerr << p->value << endl;
-  } while (p != m_guard);
+  for (Node *p = m_guard->next; p != m_guard; p = p->next)
+    cerr << p->val << " ";
   cerr << endl;
 }
 
 void Set::clear() {
-  Node *p = m_guard->next;
   Node *next;
-  while (p != m_guard) {
+  for (Node *p = m_guard->next; p != m_guard; p = next) {
     next = p->next;
     removeNode(p);
-    p = next;
   }
 }
 
-Set::Node *Set::getNodeWith(const ItemType &value) const
+Set::Node *Set::getNodeWith(const ItemType &val) const
 {
-  Node *p = m_guard;
-  do {
-    p = p->next;
-    if (p->value == value)
+  for (Node *p = m_guard->next; p != m_guard; p = p->next) {
+    if (p->val == val)
       // Found it
       return p;
-  } while (p != m_guard);
+  }
   return m_guard;
 }
 
@@ -160,10 +149,10 @@ bool Set::removeNode(Node *node) {
   return true;
 }
 
-void Set::insertNodeAfter(const ItemType &value, Node *p) 
+void Set::insertNodeAfter(const ItemType &val, Node *p) 
 {
   Node *node = new Node;
-  node->value = value;
+  node->val = val;
   // link the node's prev and next pointer first
   node->prev = p;
   node->next = p->next;
@@ -174,16 +163,15 @@ void Set::insertNodeAfter(const ItemType &value, Node *p)
   m_size += 1;
 }
 
-void Set::insertNodeBefore(const ItemType &value, Node *p) 
+void Set::insertNodeBefore(const ItemType &val, Node *p) 
 {
   // This is essentially the same as insertNodeAfter, except that this function
   // insert the new node before the given positioning node.
-  insertNodeAfter(value, p->prev);
+  insertNodeAfter(val, p->prev);
 }
 
 void unite(const Set &s1, const Set &s2, Set &result)
 {
-  // reset the result set using assignment operator
   Set r;
   ItemType tmp;
   // try to insert all s1's elements into the result
@@ -201,7 +189,6 @@ void unite(const Set &s1, const Set &s2, Set &result)
 
 void subtract(const Set &s1, const Set &s2, Set &result)
 {
-  // Reset the result set using assignment operator
   Set r;
   ItemType tmp;
   // try to insert all s1's elements into the result
