@@ -1,5 +1,6 @@
 Slides
 backup/
+Playground/*
 **/*.out
 **/Submission.zip
 **/.DS_Store
