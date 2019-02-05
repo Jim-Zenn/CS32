@@ -35,7 +35,7 @@ public:
   Set &operator=(const Set &src);
   // Assignment operator.
 
-  bool empty() { return m_size == 0; };
+  bool empty() const { return m_size == 0; };
   // Return true if the set is empty, otherwise false.
 
   int size() const { return m_size; }

@@ -25,7 +25,7 @@ public:
   Set(){};
   // Create an empty set (i.e., one with no items).
 
-  bool empty() { return m_size == 0; };
+  bool empty() const { return m_size == 0; };
   // Return true if the set is empty, otherwise false.
 
   int size() const { return m_size; }
