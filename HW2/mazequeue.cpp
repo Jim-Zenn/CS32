@@ -78,7 +78,7 @@ bool pathExists(string maze[], int nRows, int nCols,
     }
   }
 
-  for (int i = 0; i < nRows; i += 1) {
+  for (int i = 0; i < nRows; i += 1)
     delete discovered[i];
   delete [] discovered;
 
