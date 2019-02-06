@@ -10,6 +10,7 @@
 #include <stack>
 #include <cstdlib>
 #include <cctype>
+#include <cassert>
 
 #include "Set.h"
 
