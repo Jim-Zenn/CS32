@@ -34,6 +34,7 @@ bool pathExists(string maze[], int nRows, int nCols,
   stack<Coord> coordStack;
   // initialize a 2d boolean array to mark discovered nodes
   bool **discovered = new bool *[nRows];
+  bool found = false;
   for (int i = 0; i < nRows; i += 1) {
     discovered[i] = new bool[nCols];
     for (int j = 0; j < nCols; j += 1)
@@ -45,7 +46,11 @@ bool pathExists(string maze[], int nRows, int nCols,
     Coord curr = coordStack.top();  // check the next coord
     // cerr << "(" << curr.r() << "," << curr.c() << ")" << endl;
     coordStack.pop();
-    if (curr.r() == er && curr.c() == ec)  return true;  // arrived
+    if (curr.r() == er && curr.c() == ec) {
+      // arrived
+      found = true;
+      break;
+    }
 
     // South
     Coord s = Coord(curr.r() + 1, curr.c());
@@ -72,7 +77,7 @@ bool pathExists(string maze[], int nRows, int nCols,
       discovered[e.r()][e.c()] = true;
     }
   }
-  return false;
+  return found;
 }
 
 int main()
