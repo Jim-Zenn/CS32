@@ -5,10 +5,10 @@
  * Distributed under terms of the MIT license.
  */
 
-#include <iostream>
+// #include <iostream>
 #include <string>
 #include <stack>
-#include <cassert>
+// #include <cassert>
 
 using namespace std;
 
@@ -54,61 +54,61 @@ bool pathExists(string maze[], int nRows, int nCols,
   return sy || wy || ny || ey;
 }
 
-int main()
-{
-  string maze[10] = {
-      "XXXXXXXXXX",
-      "X....X...X",
-      "X.XX.XX..X",
-      "XXX....X.X",
-      "X.XXX.XXXX",
-      "X.X...X..X",
-      "X...X.X..X",
-      "XXXXX.X.XX",
-      "X........X",
-      "XXXXXXXXXX"};
-  if (pathExists(maze, 10, 10, 3, 5, 8, 8))
-    cout << "Solvable!" << endl;
-  else
-    cout << "Out of luck!" << endl;
+// int main()
+// {
+//   string maze[10] = {
+//       "XXXXXXXXXX",
+//       "X....X...X",
+//       "X.XX.XX..X",
+//       "XXX....X.X",
+//       "X.XXX.XXXX",
+//       "X.X...X..X",
+//       "X...X.X..X",
+//       "XXXXX.X.XX",
+//       "X........X",
+//       "XXXXXXXXXX"};
+//   if (pathExists(maze, 10, 10, 3, 5, 8, 8))
+//     cout << "Solvable!" << endl;
+//   else
+//     cout << "Out of luck!" << endl;
 
-  string noWhereToGo[3] = {
-      "XXXXX",
-      "X.X.X",
-      "XXXXX"};
-  assert(pathExists(noWhereToGo, 3, 5, 1, 1, 1, 4) == false);
+//   string noWhereToGo[3] = {
+//       "XXXXX",
+//       "X.X.X",
+//       "XXXXX"};
+//   assert(pathExists(noWhereToGo, 3, 5, 1, 1, 1, 4) == false);
 
-  string instantVictory[3] = {
-      "XXX",
-      "X.X",
-      "XXX"};
-  assert(pathExists(instantVictory, 3, 3, 1, 1, 1, 1) == true);
+//   string instantVictory[3] = {
+//       "XXX",
+//       "X.X",
+//       "XXX"};
+//   assert(pathExists(instantVictory, 3, 3, 1, 1, 1, 1) == true);
 
-  string youngsDoubleSlit[10] = {
-      "XXXXX",
-      "X.X.X",
-      "X.X.X",
-      "X.X.X",
-      "X.X.X",
-      "X.X.X",
-      "X.X.X",
-      "X.X.X",
-      "X.X.X",
-      "XXXXX"};
-  assert(pathExists(youngsDoubleSlit, 10, 5, 1, 1, 8, 3) == false);
+//   string youngsDoubleSlit[10] = {
+//       "XXXXX",
+//       "X.X.X",
+//       "X.X.X",
+//       "X.X.X",
+//       "X.X.X",
+//       "X.X.X",
+//       "X.X.X",
+//       "X.X.X",
+//       "X.X.X",
+//       "XXXXX"};
+//   assert(pathExists(youngsDoubleSlit, 10, 5, 1, 1, 8, 3) == false);
 
-  string complex[10] = {
-      "XXXXXXXXXX",
-      "X....X...X",
-      "X.XX.XX..X",
-      "XXX....X.X",
-      "X.XXX.XXXX",
-      "X.X...X..X",
-      "X...X.X..X",
-      "XXXXX.X.XX",
-      "X........X",
-      "XXXXXXXXXX"};
-  assert(pathExists(complex, 10, 10, 3, 5, 8, 8) == true);
+//   string complex[10] = {
+//       "XXXXXXXXXX",
+//       "X....X...X",
+//       "X.XX.XX..X",
+//       "XXX....X.X",
+//       "X.XXX.XXXX",
+//       "X.X...X..X",
+//       "X...X.X..X",
+//       "XXXXX.X.XX",
+//       "X........X",
+//       "XXXXXXXXXX"};
+//   assert(pathExists(complex, 10, 10, 3, 5, 8, 8) == true);
 
-  cout << "passed all tests" << endl;
-}
+//   cout << "passed all tests" << endl;
+// }

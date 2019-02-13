@@ -6,7 +6,7 @@
  */
 
 #include <iostream>
-#include <cstdlib>
+// #include <cstdlib>
 #include <string>
 
 using namespace std;
@@ -39,10 +39,10 @@ class Restaurant : public Landmark
 {
   public:
   Restaurant(string name, int capacity): Landmark(name), m_capacity(capacity) {
-    if (m_capacity < 0) {
-      cerr << "A restaurant that holds less than zero people? Hmm..." << endl;
-      exit(1);
-    }
+    // if (m_capacity < 0) {
+    //   cerr << "A restaurant that holds less than zero people? Hmm..." << endl;
+    //   exit(1);
+    // }
   }
   virtual ~Restaurant() {
     cout << "Destroying the restaurant " << name() << "." << endl;
