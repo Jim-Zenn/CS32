@@ -1,3 +1,10 @@
+/*
+ * linear.cpp
+ * Copyright (C) 2019 Jim Zenn <zenn@ucla.edu>
+ *
+ * Distributed under terms of the MIT license.
+ */
+
 #include <iostream>
 #include <cmath>
 #include <cassert>
