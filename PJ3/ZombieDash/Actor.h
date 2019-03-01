@@ -9,11 +9,9 @@ class Penelope;
 
 class Actor : public GraphObject {
 public:
-  Actor(StudentWorld *world, int imageID, double x, double y, Direction dir,
+  Actor(StudentWorld * world, int imageID, double x, double y, Direction dir,
         int depth);
-  virtual ~Actor(){};
-  StudentWorld *world() const { return m_world; }
-  Penelope *player() const;
+  virtual ~Actor(){}
 
   // Actions
   virtual void doSomething() {
@@ -21,9 +19,13 @@ public:
     if (willBeRemoved())
       finishTurn();
   }
-  virtual void die(){};
-  virtual void infect(){};
-  virtual void evacuate(){};
+  virtual void die(){}
+  virtual void infect(){}
+  virtual void evacuate(){}
+
+  // Accessors
+  StudentWorld * world() const { return m_world; }
+  Penelope * player() const;
   virtual bool isHuman() const { return false; }
   virtual bool isZombie() const { return false; }
   virtual bool blocks() const { return false; }
@@ -31,12 +33,12 @@ public:
   bool willBeRemoved() const { return m_willBeRemoved; }
   bool turnFinished() const { return m_turnFinished; }
 
+  // helpers
   double overlaps(const Actor *obj) const;
   double distTo(const Actor *obj) const;
   bool isNear(const Actor *obj) const;
-
-  double nextNSpriteX(const Direction &dir, const int &n) const;
-  double nextNSpriteY(const Direction &dir, const int &n) const;
+  double offsetX(const Direction &dir, const double &dist) const;
+  double offsetY(const Direction &dir, const double &dist) const;
 
   void finishTurn() { m_turnFinished = true; }
 
@@ -64,11 +66,11 @@ public:
   Agent(StudentWorld *world, int imageID, double x, double y,
         const double &speed);
 
-  Direction getDirectionTowards(const Actor *target);
   virtual bool blocks() const { return true; }
   double speed() const { return m_speed; }
   bool isParalyzed() const { return m_isParalyzed; }
   bool isBlockedAtDir(const Direction &dir) const;
+  Direction getDirectionTowards(const Actor *target) const;
 
   double nextX(const Direction &dir) const {
     switch (dir) {
@@ -102,7 +104,6 @@ class Human : public Agent {
 public:
   Human(StudentWorld *world, int imageID, double x, double y,
         const double &speed);
-  virtual ~Human();
   virtual void doSomething() {
     Agent::doSomething();
     if (!turnFinished())

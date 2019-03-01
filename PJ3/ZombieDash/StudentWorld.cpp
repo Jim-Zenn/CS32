@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include <random>
 
 using namespace std;
 
@@ -20,7 +21,7 @@ StudentWorld::StudentWorld(string assetPath) : GameWorld(assetPath) {}
 int StudentWorld::init() {
   // reset everything
   m_levelFinished = false;
-  m_nHumans = 0;
+  m_nCitizen = 0;
   // load level file according to getLevel()
   Level level(assetPath());
 
@@ -98,20 +99,18 @@ int StudentWorld::move() {
                   "Flames: " + to_string(player()->gasCanCount()) + "  " +
                   "Mines:  " + to_string(player()->landmineCount()) + "  " +
                   "Infected: " + to_string(player()->infectionTime()));
-  if (player()->willBeRemoved())
-    // Game over
-    return GWSTATUS_PLAYER_DIED;
-
+    if (playerDied()) {
+        decLives();
+        return GWSTATUS_PLAYER_DIED;
+    }
   for (auto actor : m_actors)
     actor->doSomething();
-
   // remove dead actors (R.I.P.)
   m_actors.remove_if([this](Actor *a) {
-    if (a->willBeRemoved()) {
+    bool shouldRemove = a->willBeRemoved();
+    if (shouldRemove)
       delete a;
-      return true;
-    }
-    return false;
+    return shouldRemove;
   });
 
   return levelFinished() ? GWSTATUS_FINISHED_LEVEL : GWSTATUS_CONTINUE_GAME;
@@ -131,6 +130,7 @@ bool StudentWorld::addPlayer(const double &x, const double &y) {
   return true;
 }
 bool StudentWorld::addCitizen(const double &x, const double &y) {
+  incCitizenCount();
   addActor(new Citizen(this, x, y));
   return true;
 }
@@ -225,7 +225,7 @@ bool StudentWorld::checkOverlap(const Actor *obj1, const Actor *obj2) const {
   return checkOverlap(obj1, obj2->getX(), obj2->getY());
 }
 
-bool StudentWorld::checkFlammableAt(const double &x, const double &y) {
+bool StudentWorld::checkFlammableAt(const double &x, const double &y) const {
   for (auto actor : m_actors) {
     if (!actor->isFlammable() && checkOverlap(actor, x, y))
       return false;
@@ -306,28 +306,23 @@ bool StudentWorld::squareOverlap(const Actor *obj1, const Actor *obj2,
 
 void StudentWorld::infectAt(const double &x, const double &y) {
   for (auto actor : m_actors) {
-    if (actor->isHuman() && !actor->willBeRemoved() &&
-        checkOverlap(actor, x, y)) {
+    if (!actor->willBeRemoved() && checkOverlap(actor, x, y))
       actor->infect();
-    }
   }
 }
 
 void StudentWorld::evacuateAt(const double &x, const double &y) {
   for (auto actor : m_actors) {
-    if (actor->isHuman() && !actor->willBeRemoved() &&
-        checkOverlap(actor, x, y)) {
-      // Knock-knock-knockin' on heaven's door
+    if (!actor->willBeRemoved() && checkOverlap(actor, x, y))
       actor->evacuate();
-    }
   }
 }
 
 void StudentWorld::killAt(const double &x, const double &y) {
   for (auto actor : m_actors) {
-    if (!actor->willBeRemoved() && checkOverlap(actor, x, y)) {
+    if (!actor->willBeRemoved() && checkOverlap(actor, x, y))
+      // Knock-knock-knockin' on heaven's door
       actor->die();
-    }
   }
 }
 
@@ -364,13 +359,13 @@ Actor *StudentWorld::getNearestHuman(const double &x, const double &y) const {
 }
 
 int StudentWorld::unifRandomInt(const int &min, const int &max) const {
-  std::random_device rd;
-  std::uniform_int_distribution<int> dist(min, max);
+  random_device rd;
+  uniform_int_distribution<int> dist(min, max);
   return dist(rd);
 }
 
-bool StudentWorld::bernoulliRandomBool(const double p) const {
-  std::random_device rd;
-  std::bernoulli_distribution dist(p);
+bool StudentWorld::bernoulliRandomBool(const double &p) const {
+  random_device rd;
+  bernoulli_distribution dist(p);
   return dist(rd);
 }

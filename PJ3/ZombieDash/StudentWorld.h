@@ -19,9 +19,9 @@
 #define SPEED_CITIZEN 2
 #define SPEED_ZOMBIE 1
 
+#define PROJECTILE_LIFE 2
 #define FLAMETHROWER_RANGE 3
 #define TIME_INFECTION_LIMIT 500
-#define PROJECTILE_LIFE 2
 #define ZOMBIE_MOVEMENT_RANGE_MIN 3
 #define ZOMBIE_MOVEMENT_RANGE_MAX 10
 
@@ -29,14 +29,9 @@
 #include "GraphObject.h"
 
 #include <list>
-#include <queue>
-#include <string>
 
 class Actor;
-class Agent;
 class Penelope;
-class Vomit;
-class Exit;
 
 using namespace std;
 
@@ -48,8 +43,9 @@ public:
   virtual void cleanUp();
 
   // Accessors
-  int humanCount() const { return m_nHumans; }
+  int citizenCount() const { return m_nCitizen; }
   bool levelFinished() const { return m_levelFinished; }
+  bool playerDied() const { return player()->willBeRemoved(); }
   Penelope *player() const { return m_player; }
 
   void setPlayer(Penelope *player) { m_player = player; }
@@ -73,8 +69,8 @@ public:
 
   // Helpers
   bool squareOverlap(const double &x1, const double &y1, const double &x2,
-                     const double &y2, const double &side_x,
-                     const double &side_y) const;
+                     const double &y2, const double &sideX,
+                     const double &sideY) const;
   bool squareOverlap(const Actor *obj, const double &x2, const double &y2,
                      const double &width, const double &height) const;
   bool squareOverlap(const Actor *obj1, const Actor *obj2, const double &width,
@@ -87,32 +83,30 @@ public:
                     const double &y2) const;
   bool checkOverlap(const Actor *obj, const double &x, const double &y) const;
   bool checkOverlap(const Actor *obj1, const Actor *obj2) const;
+  bool checkOverlapWithHuman(const double &x, const double &y) const;
+  bool checkOverlapWithAgent(const double &x, const double &y) const;
   bool checkNear(const Actor *obj1, const Actor *obj2) const {
     return distBetween(obj1, obj2) <= NEAR_DISTANCE;
   }
+  bool checkFlammableAt(const double &x, const double &y) const;
+  bool checkBlockAtDir(const Actor *obj, const Direction &dir,
+                         const double &dist) const;
 
   // Actions
   void infectAt(const double &x, const double &y);
   void evacuateAt(const double &x, const double &y);
   void killAt(const double &x, const double &y);
 
-  // Predicates
-  bool checkFlammableAt(const double &x, const double &y);
-  bool checkBlockAtDir(const Actor *obj, const Direction &dir,
-                       const double &dist) const;
-  bool checkOverlapWithHuman(const double &x, const double &y) const;
-  bool checkOverlapWithAgent(const double &x, const double &y) const;
-
   Actor *getNearestZombie(const double &x, const double &y) const;
   Actor *getNearestHuman(const double &x, const double &y) const;
 
-  // Random
+  // Random Generators
   int unifRandomInt(const int &min, const int &max) const;
-  bool bernoulliRandomBool(const double p) const;
+  bool bernoulliRandomBool(const double &p) const;
   Direction randomDirection() const { return unifRandomInt(0, 3) * 90; };
 
-  void incHumanCount() { m_nHumans++; }
-  void decHumanCount() { m_nHumans--; }
+  void incCitizenCount() { m_nCitizen++; }
+  void decCitizenCount() { m_nCitizen--; }
   void finishLevel() {
     m_levelFinished = true;
     playSound(SOUND_LEVEL_FINISHED);
@@ -121,7 +115,7 @@ public:
 private:
   list<Actor *> m_actors;
   Penelope *m_player;
-  int m_nHumans = 0; // actors that need to be saved, Penelope included
+  int m_nCitizen = 0; // actors that need to be saved, Penelope included
   bool m_levelFinished = false;
 };
 
