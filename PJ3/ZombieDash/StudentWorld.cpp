@@ -7,8 +7,8 @@
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
-#include <string>
 #include <random>
+#include <string>
 
 using namespace std;
 
@@ -99,10 +99,10 @@ int StudentWorld::move() {
                   "Flames: " + to_string(player()->gasCanCount()) + "  " +
                   "Mines:  " + to_string(player()->landmineCount()) + "  " +
                   "Infected: " + to_string(player()->infectionTime()));
-    if (playerDied()) {
-        decLives();
-        return GWSTATUS_PLAYER_DIED;
-    }
+  if (playerDied()) {
+    decLives();
+    return GWSTATUS_PLAYER_DIED;
+  }
   for (auto actor : m_actors)
     actor->doSomething();
   // remove dead actors (R.I.P.)

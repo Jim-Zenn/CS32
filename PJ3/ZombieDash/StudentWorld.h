@@ -90,7 +90,7 @@ public:
   }
   bool checkFlammableAt(const double &x, const double &y) const;
   bool checkBlockAtDir(const Actor *obj, const Direction &dir,
-                         const double &dist) const;
+                       const double &dist) const;
 
   // Actions
   void infectAt(const double &x, const double &y);

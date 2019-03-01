@@ -3,7 +3,7 @@
 
 #include <random>
 
-Actor::Actor(StudentWorld * world, int imageID, double x, double y,
+Actor::Actor(StudentWorld *world, int imageID, double x, double y,
              Direction dir, int depth)
     : GraphObject(imageID, x, y, dir, depth), m_world(world) {}
 
@@ -29,7 +29,7 @@ double Actor::offsetY(const Direction &dir, const double &dist) const {
   }
 }
 
-Penelope * Actor::player() const { return world()->player(); }
+Penelope *Actor::player() const { return world()->player(); }
 
 double Actor::overlaps(const Actor *obj) const {
   return world()->checkOverlap(this, obj);
@@ -131,19 +131,17 @@ bool Agent::isBlockedAtDir(const Direction &dir) const {
 
 Direction Agent::getDirectionTowards(const Actor *target) const {
   Direction dir = 0;
-if (getX() == target->getX()) {
+  if (getX() == target->getX()) {
     if (target->getY() > getY())
-        dir = UP;
+      dir = UP;
     if (target->getY() < getY())
-        dir = DOWN;
-}
-else if (getY() == target->getY()) {
+      dir = DOWN;
+  } else if (getY() == target->getY()) {
     if (getX() < target->getX())
-        dir = RIGHT;
+      dir = RIGHT;
     if (getX() > target->getX())
-        dir = LEFT;
-}
-else {
+      dir = LEFT;
+  } else {
     Direction dirX = getX() > target->getX() ? LEFT : RIGHT;
     Direction dirY = getY() > target->getY() ? DOWN : UP;
     bool isBlockedX = isBlockedAtDir(dirX);
@@ -160,8 +158,7 @@ else {
 
 Human::Human(StudentWorld *world, int imageID, double x, double y,
              const double &speed)
-    : Agent(world, imageID, x, y, speed) {
-}
+    : Agent(world, imageID, x, y, speed) {}
 
 void Human::updateInfection() {
   if (!isInfected())
@@ -321,6 +318,7 @@ void Citizen::die() {
 
 void Citizen::evacuate() {
   scheduleRemoval();
+  world()->decCitizenCount();
   world()->playSound(SOUND_CITIZEN_SAVED);
   world()->increaseScore(SCORE_CITIZEN_SAVED);
 }
@@ -336,10 +334,10 @@ void Citizen::mutate() {
   scheduleRemoval();
   world()->playSound(SOUND_ZOMBIE_BORN);
   world()->increaseScore(SCORE_CITIZEN_DIE);
-    if (world()->bernoulliRandomBool(.7))
-        world()->addDumbZombie(getX(), getY());
-    else
-        world()->addSmartZombie(getX(), getY());
+  if (world()->bernoulliRandomBool(.7))
+    world()->addDumbZombie(getX(), getY());
+  else
+    world()->addSmartZombie(getX(), getY());
 }
 
 Zombie::Zombie(StudentWorld *world, double x, double y)
@@ -360,8 +358,8 @@ void Zombie::doSomething() {
 
 bool Zombie::vomit() {
   // see if any human is in the range
-  double vomitX = offsetX(getDirection(), 1);
-  double vomitY = offsetY(getDirection(), 1);
+  double vomitX = offsetX(getDirection(), SPRITE_WIDTH);
+  double vomitY = offsetY(getDirection(), SPRITE_HEIGHT);
   if (world()->checkOverlapWithHuman(vomitX, vomitY)) {
     // there is a 1/3 chance that the zombie will vomit
     if (world()->unifRandomInt(1, 3) == 1) {
@@ -419,17 +417,17 @@ void DumbZombie::doSomething() {
 
 void SmartZombie::die() {
   Zombie::die();
+  world()->increaseScore(SCORE_SMART_ZOMBIE_DIE);
+}
+
+void DumbZombie::die() {
+  Zombie::die();
   if (world()->unifRandomInt(1, 10) == 1) {
     Direction flingDir = world()->randomDirection();
     double vaccineX = offsetX(flingDir, SPRITE_WIDTH);
     double vaccineY = offsetY(flingDir, SPRITE_HEIGHT);
     world()->addVaccineGoodie(vaccineX, vaccineY);
   }
-  world()->increaseScore(SCORE_SMART_ZOMBIE_DIE);
-}
-
-void DumbZombie::die() {
-  Zombie::die();
   world()->increaseScore(SCORE_DUMB_ZOMBIE_DIE);
 }
 
@@ -470,14 +468,12 @@ void Projectile::doSomething() {
 
 void Vomit::doSomething() {
   Projectile::doSomething();
-  if (!turnFinished()) {
+  if (!turnFinished())
     world()->infectAt(getX(), getY());
-  }
 }
 
 void Flame::doSomething() {
   Projectile::doSomething();
-  if (!turnFinished()) {
+  if (!turnFinished())
     world()->killAt(getX(), getY());
-  }
 }

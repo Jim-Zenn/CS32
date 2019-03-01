@@ -9,9 +9,9 @@ class Penelope;
 
 class Actor : public GraphObject {
 public:
-  Actor(StudentWorld * world, int imageID, double x, double y, Direction dir,
+  Actor(StudentWorld *world, int imageID, double x, double y, Direction dir,
         int depth);
-  virtual ~Actor(){}
+  virtual ~Actor() {}
 
   // Actions
   virtual void doSomething() {
@@ -19,13 +19,13 @@ public:
     if (willBeRemoved())
       finishTurn();
   }
-  virtual void die(){}
-  virtual void infect(){}
-  virtual void evacuate(){}
+  virtual void die() {}
+  virtual void infect() {}
+  virtual void evacuate() {}
 
   // Accessors
-  StudentWorld * world() const { return m_world; }
-  Penelope * player() const;
+  StudentWorld *world() const { return m_world; }
+  Penelope *player() const;
   virtual bool isHuman() const { return false; }
   virtual bool isZombie() const { return false; }
   virtual bool blocks() const { return false; }
