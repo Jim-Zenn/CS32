@@ -12,7 +12,7 @@
 
 const int DEFAULT_MAX_ITEMS = 250;
 
-/* #define ITEMTYPE_UNSIGNED_LONG */
+#define ITEMTYPE_UNSIGNED_LONG
 
 #ifdef ITEMTYPE_UNSIGNED_LONG
 using ItemType = unsigned long;

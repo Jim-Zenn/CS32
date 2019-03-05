@@ -1,0 +1,31 @@
+hw.txt
+
+:Author: Jim Zenn
+:Email: zenn@ucla.edu
+:Date: 2019-03-04 15:18
+
+2. In the Set implementation, all elements are sorted. Hence, the template type
+must have implementation of at least operator== and operator<. Nevertheless, the
+Coord class does not have one.
+
+3b. The recursion process cannot retain a memory of its parent path otherwise,
+since the function returns nothing, and no static or global variables are
+allowed.
+
+4a. O(N^3)
+
+4b. Still O(N^3). Although the algorithm managed to half the amount of work
+required, it's still on O(N^3).
+
+5a. O(N^2). The worst case happens when the program hit the for loop. Since the
+Set::get() function is called for each k from 0 to N-1, and each call is O(k),
+the total cost is O(N^2) with some coefficient.
+
+5b. O(NlogN). Although a lot is done other than the sort, all the operations are
+of O(N) complexity. The adding part, is O(N); The erase part, is also O(N); and
+the copying part, is again, O(N). Hence, the whole process's bottle neck is the
+sorting process, making it a O(NlogN) function.
+
+5c. O(N). Unlike the previous approaches, this one compares the two lists node
+by node, and only requires one scan of each node. Hence this gives the fastest
+performance.
