@@ -5,16 +5,19 @@
 
 CC=clang++
 
-all: test list
+all: test list sorts
 	./test
 	./list
+	./sorts
 
 test: test.cpp
 	$(CC) test.cpp -o test
 
-list: list.cpp
-	$(CC) list.cpp -o list
+list: list-complete.cpp
+	$(CC) list-complete.cpp -o list
 
+sorts: sorts.cpp
+	$(CC) sorts.cpp -o sorts
 
 # vim:ft=make
 #
