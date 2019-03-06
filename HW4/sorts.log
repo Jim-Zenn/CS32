@@ -1,0 +1,35 @@
+Enter number of stores to sort: 10000
+18.6239 milliseconds; STL sort; first few stores are
+         (6343, 8928) (1527, 8903) (316, 8877) (5097, 8877)
+5.44535 milliseconds; STL sort if already sorted; first few stores are
+         (6343, 8928) (1527, 8903) (316, 8877) (5097, 8877)
+12059.4 milliseconds; insertion sort if not already sorted; first few stores are
+         (6343, 8928) (1527, 8903) (316, 8877) (5097, 8877)
+0.13756 milliseconds; insertion sort if already sorted; first few stores are
+         (6343, 8928) (1527, 8903) (316, 8877) (5097, 8877)
+15.9874 milliseconds; STL sort of pointers; first few stores are
+         (6343, 8928) (1527, 8903) (316, 8877) (5097, 8877)
+[classqze@lnxsrv07 ~/CS32/HW4]$ ./sorts
+Enter number of stores to sort: 20000
+51.1239 milliseconds; STL sort; first few stores are
+         (4383, 8964) (5347, 8951) (17506, 8932) (9879, 8931)
+13.9573 milliseconds; STL sort if already sorted; first few stores are
+         (4383, 8964) (5347, 8951) (17506, 8932) (9879, 8931)
+45563.1 milliseconds; insertion sort if not already sorted; first few stores are
+         (4383, 8964) (5347, 8951) (17506, 8932) (9879, 8931)
+0.171155 milliseconds; insertion sort if already sorted; first few stores are
+         (4383, 8964) (5347, 8951) (17506, 8932) (9879, 8931)
+27.9599 milliseconds; STL sort of pointers; first few stores are
+         (4383, 8964) (5347, 8951) (17506, 8932) (9879, 8931)
+[classqze@lnxsrv07 ~/CS32/HW4]$ ./sorts
+Enter number of stores to sort: 40000
+104.993 milliseconds; STL sort; first few stores are
+         (28458, 9014) (9903, 8997) (14203, 8952) (9996, 8950)
+39.5122 milliseconds; STL sort if already sorted; first few stores are
+         (28458, 9014) (9903, 8997) (14203, 8952) (9996, 8950)
+286483 milliseconds; insertion sort if not already sorted; first few stores are
+         (28458, 9014) (9903, 8997) (14203, 8952) (9996, 8950)
+0.370808 milliseconds; insertion sort if already sorted; first few stores are
+         (28458, 9014) (9903, 8997) (14203, 8952) (9996, 8950)
+64.4175 milliseconds; STL sort of pointers; first few stores are
+         (28458, 9014) (9903, 8997) (14203, 8952) (9996, 8950)

@@ -1,31 +1,43 @@
-hw.txt
+2. In this implementation of the so-called set, all elements are sorted.
+Hence, the template type must have implementation of at least some sort of
+comparison operator, depending on the set implementation.
+Indeed， in function Set::findFirstAtLeast, which is called by Set::insert, we
+see the comparison between two ItemType objects: "p->m_value < value".
+Unfortunately, the Coord class does not have an implementation of "<" operator.
+That's why the compilation error occured.
 
-:Author: Jim Zenn
-:Email: zenn@ucla.edu
-:Date: 2019-03-04 15:18
-
-2. In the Set implementation, all elements are sorted. Hence, the template type
-must have implementation of at least operator== and operator<. Nevertheless, the
-Coord class does not have one.
-
-3b. The recursion process cannot retain a memory of its parent path otherwise,
-since the function returns nothing, and no static or global variables are
+3b. The recursion process cannot retain a memory of its contextual path
+otherwise, since function returns nothing, and no static or global variables are
 allowed.
 
-4a. O(N^3)
+4a. O(N^3). There are three for loops in total.
+i [0, N), j [0, N), k [0, N).
+In the worst case, each inner iteration has at least one basic operation.
+Hence, O(N^3).
 
 4b. Still O(N^3). Although the algorithm managed to half the amount of work
-required, it's still on O(N^3).
+required by utilizing the symmetric property of this matrix, it still has a
+complexity of O(N^3).
 
-5a. O(N^2). The worst case happens when the program hit the for loop. Since the
-Set::get() function is called for each k from 0 to N-1, and each call is O(k),
-the total cost is O(N^2) with some coefficient.
+5a. O(N^2).
+We can see there are essentially 4 scenarios:
+1) if &set1 == &set2 == &result, return. O(1).
+2) if &result == &set2 != &set1, do for loop. I'll analyze the for loop
+complexity later.
+3) otherwise, assign set1 to result, O(N), then the for loop.
+The worst case happens when the program hit the for loop. Since the
+Set::get() function is called for each k from 0 to N-1, and each call is
+theta(k) (O(N)), the total cost is O(N^2).
 
-5b. O(NlogN). Although a lot is done other than the sort, all the operations are
-of O(N) complexity. The adding part, is O(N); The erase part, is also O(N); and
-the copying part, is again, O(N). Hence, the whole process's bottle neck is the
-sorting process, making it a O(NlogN) function.
+5b. O(NlogN).
+Copying all the items into v is an O(N) operation.
+Sorting is an O(NlogN) operation.
+delete all nodes is an O(N) operation.
+copy unique items from v to result is an O(N) operation.
+In conclusion, the bottle neck is the sorting part, resulting in an O(NlogN)
+overall complexity.
 
-5c. O(N). Unlike the previous approaches, this one compares the two lists node
-by node, and only requires one scan of each node. Hence this gives the fastest
-performance.
+5c. O(N).
+Unlike the previous approaches, this one compares the two lists node by node,
+and **only requires O(1) scan of each node**. Hence this gives the fastest
+performance. (O(1) * 2N = O(N))

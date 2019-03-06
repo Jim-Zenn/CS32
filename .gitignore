@@ -3,6 +3,7 @@ backup/
 Playground/*
 **/*.out
 **/Submission.zip
+**/.ccls-cache
 **/.DS_Store
 **/.vscode
 **/.idea
