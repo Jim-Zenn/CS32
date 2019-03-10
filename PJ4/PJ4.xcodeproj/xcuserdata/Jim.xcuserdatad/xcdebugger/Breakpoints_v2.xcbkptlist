@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PJ4/GenomeMatcher.cpp"
+            timestampString = "573900484.23259"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "GenomeMatcherImpl::prefixMatch(string const &amp;a, string const &amp;b, bool const &amp;exactMatchOnly)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PJ4/GenomeMatcher.cpp"
+            timestampString = "573900484.232667"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "GenomeMatcherImpl::findGenomesWithThisDNA(const string &amp;fragment, int minimumLength, bool exactMatchOnly, vector&lt;DNAMatch&gt; &amp;matches)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PJ4/GenomeMatcher.cpp"
+            timestampString = "573900484.23273"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "GenomeMatcherImpl::findGenomesWithThisDNA(const string &amp;fragment, int minimumLength, bool exactMatchOnly, vector&lt;DNAMatch&gt; &amp;matches)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GenomeMatcherImpl::findGenomesWithThisDNA(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;, int, bool, std::__1::vector&lt;DNAMatch, std::__1::allocator&lt;DNAMatch&gt; &gt;&amp;) const"
+                  moduleName = "PJ4"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Jim/Code/CS32/PJ4/PJ4/GenomeMatcher.cpp"
+                  timestampString = "573866477.963406"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "1259">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GenomeMatcherImpl::findGenomesWithThisDNA(std::__1::basic_string&lt;char, std::__1::char_traits&lt;char&gt;, std::__1::allocator&lt;char&gt; &gt; const&amp;, int, bool, std::__1::vector&lt;DNAMatch, std::__1::allocator&lt;DNAMatch&gt; &gt;&amp;) const"
+                  moduleName = "PJ4"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Jim/Code/CS32/PJ4/PJ4/GenomeMatcher.cpp"
+                  timestampString = "573866477.96548"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "85"
+                  endingLineNumber = "85"
+                  offsetFromSymbolStart = "1789">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
