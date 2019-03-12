@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PJ4/GenomeMatcher.cpp"
-            timestampString = "574120863.600978"
+            filePath = "PJ4/Genome.cpp"
+            timestampString = "574126156.0259449"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "GenomeMatcherImpl::prefixMatch(string const &amp;a, string const &amp;b, bool const &amp;exactMatchOnly)"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "GenomeImpl::load(istream &amp;genomeSource, vector&lt;Genome&gt; &amp;genomes)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,14 +25,126 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PJ4/Genome.cpp"
-            timestampString = "574116918.406846"
+            filePath = "PJ4/GenomeMatcher.cpp"
+            timestampString = "574126156.026193"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "GenomeImpl::load(istream&amp; genomeSource, vector&lt;Genome&gt;&amp; genomes)"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "GenomeMatcherImpl::findRelatedGenomes(const Genome &amp;query, int fragmentMatchLength, bool exactMatchOnly, double matchPercentThreshold, vector&lt;GenomeMatch&gt; &amp;results)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GenomeMatcherImpl::findRelatedGenomes(Genome const&amp;, int, bool, double, std::__1::vector&lt;GenomeMatch, std::__1::allocator&lt;GenomeMatch&gt; &gt;&amp;) const"
+                  moduleName = "PJ4"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Jim/Code/CS32/PJ4/PJ4/GenomeMatcher.cpp"
+                  timestampString = "574125217.629037"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "147"
+                  endingLineNumber = "147"
+                  offsetFromSymbolStart = "241">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GenomeMatcherImpl::findRelatedGenomes(Genome const&amp;, int, bool, double, std::__1::vector&lt;GenomeMatch, std::__1::allocator&lt;GenomeMatch&gt; &gt;&amp;) const"
+                  moduleName = "PJ4"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Jim/Code/CS32/PJ4/PJ4/GenomeMatcher.cpp"
+                  timestampString = "574125217.630945"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "147"
+                  endingLineNumber = "147"
+                  offsetFromSymbolStart = "661">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PJ4/main.cpp"
+            timestampString = "574126156.026705"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
+            landmarkName = "main()"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PJ4/main.cpp"
+            timestampString = "574126156.0268641"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
+            landmarkName = "main()"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PJ4/GenomeMatcher.cpp"
+            timestampString = "574126156.026914"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
+            landmarkName = "GenomeMatcherImpl::findRelatedGenomes(const Genome &amp;query, int fragmentMatchLength, bool exactMatchOnly, double matchPercentThreshold, vector&lt;GenomeMatch&gt; &amp;results)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GenomeMatcherImpl::findRelatedGenomes(Genome const&amp;, int, bool, double, std::__1::vector&lt;GenomeMatch, std::__1::allocator&lt;GenomeMatch&gt; &gt;&amp;) const"
+                  moduleName = "PJ4"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Jim/Code/CS32/PJ4/PJ4/GenomeMatcher.cpp"
+                  timestampString = "574126156.24428"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "163"
+                  endingLineNumber = "163"
+                  offsetFromSymbolStart = "2923">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "GenomeMatcherImpl::findRelatedGenomes(Genome const&amp;, int, bool, double, std::__1::vector&lt;GenomeMatch, std::__1::allocator&lt;GenomeMatch&gt; &gt;&amp;) const"
+                  moduleName = "PJ4"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Jim/Code/CS32/PJ4/PJ4/GenomeMatcher.cpp"
+                  timestampString = "574126156.246482"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "163"
+                  endingLineNumber = "163"
+                  offsetFromSymbolStart = "3575">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

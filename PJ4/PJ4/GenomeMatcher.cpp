@@ -12,7 +12,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <unordered_map>
+#include <map>
 #include <vector>
 
 using namespace std;
@@ -83,7 +83,7 @@ bool GenomeMatcherImpl::findGenomesWithThisDNA(
     return false;
   matches.clear();
 
-  int const fragmentSize = static_cast<int>(fragment.size());
+  int const fragmentLength = static_cast<int>(fragment.size());
   // use the first K-chars substring of the fragment as the key to search the
   // trie index, which gives us a collection of candidate genomes.
   // These candidates contains a K-char segment which matches first K-char
@@ -91,14 +91,19 @@ bool GenomeMatcherImpl::findGenomesWithThisDNA(
   string const key = fragment.substr(0, minimumSearchLength());
   vector<GenomeRef> candidateRefs = m_trie.find(key, exactMatchOnly);
   // filter these candidates
-  unordered_map<string, DNAMatch> matchMap;
+  map<string, DNAMatch> matchMap;
   for (auto candidateRef : candidateRefs) {
     Genome const candidateGenome = m_library.at(candidateRef.name());
     int const matchPosition = candidateRef.position();
     // get a segment that matches the length of the given fragment
     // starting from the key matching position
     string candidateSegment;
-    candidateGenome.extract(matchPosition, fragmentSize, candidateSegment);
+    // Notice that it is possible the tail length of the genome starting from
+    // the match position is shorter than the fragment length.
+    int const remainingLength = candidateGenome.length() - matchPosition;
+    int const candidateSegmentLength = min(remainingLength, fragmentLength);
+    candidateGenome.extract(matchPosition, candidateSegmentLength,
+                            candidateSegment);
     // match the longest prefix between candidateSegment and fragment
     int matchedLength = prefixMatch(candidateSegment, fragment, exactMatchOnly);
     // if the matched prefix is long enough (greater than minimumLength)
@@ -135,13 +140,15 @@ bool GenomeMatcherImpl::findRelatedGenomes(const Genome &query,
                                            vector<GenomeMatch> &results) const {
   if (fragmentMatchLength < minimumSearchLength())
     return false;
+  results.clear();
   // fragment the query genome into adjacent pieces; each with the length of
   // fragmentMatchLength.
   vector<string> const fragments = fragmentGenome(query, fragmentMatchLength);
-  unordered_map<string, int> genomeMatchCountMap;
+  map<string, int> genomeMatchCountMap;
   for (auto const &fragment : fragments) {
     vector<DNAMatch> dnaMatches;
-    findGenomesWithThisDNA(fragment, fragmentMatchLength, false, dnaMatches);
+    findGenomesWithThisDNA(fragment, fragmentMatchLength, exactMatchOnly,
+                           dnaMatches);
     for (auto const &dnaMatch : dnaMatches) {
       string const genomeName = dnaMatch.genomeName;
       if (genomeMatchCountMap.find(genomeName) == genomeMatchCountMap.end()) {
@@ -154,30 +161,30 @@ bool GenomeMatcherImpl::findRelatedGenomes(const Genome &query,
   }
   // calculate the match percentage for each genome
   for (auto const &pair : genomeMatchCountMap) {
-    // unpack the unordered_map pair
+    // unpack the map pair
     string const genomeName = pair.first;
-    int const fragmentMatchPercentage = pair.second / fragments.size();
+    int const fragmentMatchPercentage = 100 * pair.second / fragments.size();
     // construct a genome match
-    GenomeMatch genomeMatch;
-    genomeMatch.genomeName = genomeName;
-    genomeMatch.percentMatch = fragmentMatchPercentage;
-    // store the match result
-    results.push_back(genomeMatch);
+    if (fragmentMatchPercentage >= matchPercentThreshold) {
+      GenomeMatch genomeMatch;
+      genomeMatch.genomeName = genomeName;
+      genomeMatch.percentMatch = fragmentMatchPercentage;
+      // store the match result
+      results.push_back(genomeMatch);
+    }
   }
   return !results.empty();
 }
 
-vector<string>
-GenomeMatcherImpl::fragmentGenome(Genome const &genome,
+vector<string> GenomeMatcherImpl::fragmentGenome(Genome const &genome,
                                   int const &fragmentLength) const
 // fragment genome into fragmentLength pieces
 {
   vector<string> fragments;
-  for (int fragmentStart = 0; fragmentStart + fragmentLength < genome.length();
+  for (int fragmentStart = 0; fragmentStart + fragmentLength <= genome.length();
        fragmentStart += fragmentLength) {
     string fragment;
     genome.extract(fragmentStart, fragmentLength, fragment);
-    // TODO: What if extraction failed
     fragments.push_back(fragment);
   }
   return fragments;
