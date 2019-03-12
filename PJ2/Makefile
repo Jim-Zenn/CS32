@@ -6,7 +6,7 @@
 CC=clang++
 
 Set:
-	$(CC) testSet.cpp Set.cpp --std=c++14 -Wall -Wextra -o testSet && ./testSet
+	$(CC) testSet.cpp Set.cpp --std=c++17 -Wall -Wextra -o testSet && ./testSet
 
 # vim:ft=make
 #

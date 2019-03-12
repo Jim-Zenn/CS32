@@ -4,6 +4,7 @@ Playground/*
 **/*.out
 **/Submission.zip
 **/.ccls-cache
+**/DerivedData
 **/.DS_Store
 **/.vscode
 **/.idea
