@@ -8,3 +8,4 @@ Playground/*
 **/.DS_Store
 **/.vscode
 **/.idea
+*.o
