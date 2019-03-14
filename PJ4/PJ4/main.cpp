@@ -77,6 +77,8 @@ int test() {
   for (auto i : t.find(query, false))
     result += to_string(i) + " ";
   assert(result == "");
+  
+  t.reset();
 
   // Genome Test
 

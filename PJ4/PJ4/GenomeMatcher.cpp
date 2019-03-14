@@ -163,7 +163,7 @@ bool GenomeMatcherImpl::findRelatedGenomes(const Genome &query,
   for (auto const &pair : matchRecord) {
     // unpack the unordered_map pair
     string const genomeName = pair.first;
-    int const fragmentMatchPercentage = 100 * pair.second / fragments.size();
+    double const fragmentMatchPercentage = 100 * pair.second / fragments.size();
     // construct a genome match
     if (fragmentMatchPercentage >= matchPercentThreshold) {
       GenomeMatch genomeMatch;
