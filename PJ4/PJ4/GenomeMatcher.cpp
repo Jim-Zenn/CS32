@@ -12,7 +12,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 using namespace std;
@@ -38,11 +38,11 @@ private:
   public:
     GenomeRef(int const &index, int const &keyPosition)
         : m_index(index), m_position(keyPosition) {}
-    int name() const { return m_index; }
+    int index() const { return m_index; }
     int position() const { return m_position; }
 
   private:
-    int m_index;  // genome name
+    int m_index;    // genome name
     int m_position; // position of the searchKey in the genome
   };
   int const m_minimumSearchLength; // will be referred to as K in comments
@@ -91,9 +91,9 @@ bool GenomeMatcherImpl::findGenomesWithThisDNA(
   string const key = fragment.substr(0, minimumSearchLength());
   vector<GenomeRef> candidateRefs = m_trie.find(key, exactMatchOnly);
   // filter these candidates
-  map<string, DNAMatch> matchMap;
+  unordered_map<string, DNAMatch> matchMap;
   for (auto candidateRef : candidateRefs) {
-    Genome const candidateGenome = m_library.at(candidateRef.name());
+    Genome const candidateGenome = m_library.at(candidateRef.index());
     int const matchPosition = candidateRef.position();
     // get a segment that matches the length of the given fragment
     // starting from the key matching position
@@ -144,24 +144,21 @@ bool GenomeMatcherImpl::findRelatedGenomes(const Genome &query,
   // fragment the query genome into adjacent pieces; each with the length of
   // fragmentMatchLength.
   vector<string> const fragments = fragmentGenome(query, fragmentMatchLength);
-  map<string, int> genomeMatchCountMap;
+  unordered_map<string, int> matchRecord;
   for (auto const &fragment : fragments) {
     vector<DNAMatch> dnaMatches;
     findGenomesWithThisDNA(fragment, fragmentMatchLength, exactMatchOnly,
                            dnaMatches);
     for (auto const &dnaMatch : dnaMatches) {
       string const genomeName = dnaMatch.genomeName;
-      if (genomeMatchCountMap.find(genomeName) == genomeMatchCountMap.end()) {
-        // this is the first fragment match for this genome
-        genomeMatchCountMap[genomeName] = 1;
-      } else {
-        genomeMatchCountMap[genomeName]++;
-      }
+      matchRecord[genomeName] =
+          matchRecord.find(genomeName) == matchRecord.end()
+              ? 1 : matchRecord[genomeName] + 1;
     }
   }
   // calculate the match percentage for each genome
-  for (auto const &pair : genomeMatchCountMap) {
-    // unpack the map pair
+  for (auto const &pair : matchRecord) {
+    // unpack the unordered_map pair
     string const genomeName = pair.first;
     int const fragmentMatchPercentage = 100 * pair.second / fragments.size();
     // construct a genome match

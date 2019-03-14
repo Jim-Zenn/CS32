@@ -213,8 +213,10 @@ int main() {
   assert(relatedResults[0].genomeName == "Genome 1");
   matcher.findRelatedGenomes(Genome("query", "CGCCAGTA"), 4, true, 49,
                              relatedResults);
-  assert(relatedResults.size() == 1);
+  assert(relatedResults.size() == 3);
   assert(relatedResults[0].genomeName == "Genome 1");
+  assert(relatedResults[1].genomeName == "Genome 2");
+  assert(relatedResults[2].genomeName == "Genome 3");
   
   cout << "Pass all tests!" << endl;
 
