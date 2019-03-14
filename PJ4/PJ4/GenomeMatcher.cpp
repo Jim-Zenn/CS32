@@ -156,7 +156,8 @@ bool GenomeMatcherImpl::findRelatedGenomes(const Genome &query,
       string const genomeName = dnaMatch.genomeName;
       matchRecord[genomeName] =
           matchRecord.find(genomeName) == matchRecord.end()
-              ? 1 : matchRecord[genomeName] + 1;
+              ? 1
+              : matchRecord[genomeName] + 1;
     }
   }
   // calculate the match percentage for each genome

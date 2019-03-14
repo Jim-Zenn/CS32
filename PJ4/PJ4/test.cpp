@@ -6,8 +6,8 @@
 //  Copyright © 2019 UCLA. All rights reserved.
 //
 
-#include <iostream>
 #include <cassert>
+#include <iostream>
 
 #include "Trie.h"
 #include "provided.h"

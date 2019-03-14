@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		389ABE622233AFC600186B4C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 389ABE612233AFC600186B4C /* main.cpp */; };
+		38896E53223B062A00C6777C /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38896E52223B062A00C6777C /* test.cpp */; };
 		389ABE6B2233B10E00186B4C /* Genome.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 389ABE6A2233B10E00186B4C /* Genome.cpp */; };
 		389ABE6E2233B13C00186B4C /* GenomeMatcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 389ABE6C2233B13C00186B4C /* GenomeMatcher.cpp */; };
 		38A6D515223850F40058A5EA /* cli.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38A6D514223850F40058A5EA /* cli.cpp */; };
@@ -26,8 +26,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		38896E52223B062A00C6777C /* test.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		389ABE5E2233AFC600186B4C /* PJ4 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PJ4; sourceTree = BUILT_PRODUCTS_DIR; };
-		389ABE612233AFC600186B4C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		389ABE682233B03500186B4C /* Trie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Trie.h; sourceTree = "<group>"; };
 		389ABE692233B07A00186B4C /* provided.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = provided.h; sourceTree = "<group>"; };
 		389ABE6A2233B10E00186B4C /* Genome.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Genome.cpp; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 		389ABE602233AFC600186B4C /* PJ4 */ = {
 			isa = PBXGroup;
 			children = (
-				389ABE612233AFC600186B4C /* main.cpp */,
+				38896E52223B062A00C6777C /* test.cpp */,
 				389ABE682233B03500186B4C /* Trie.h */,
 				389ABE692233B07A00186B4C /* provided.h */,
 				389ABE6A2233B10E00186B4C /* Genome.cpp */,
@@ -134,7 +134,7 @@
 				389ABE6B2233B10E00186B4C /* Genome.cpp in Sources */,
 				389ABE6E2233B13C00186B4C /* GenomeMatcher.cpp in Sources */,
 				38A6D515223850F40058A5EA /* cli.cpp in Sources */,
-				389ABE622233AFC600186B4C /* main.cpp in Sources */,
+				38896E53223B062A00C6777C /* test.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
