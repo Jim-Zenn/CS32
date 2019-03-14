@@ -37,7 +37,7 @@ GenomeImpl::GenomeImpl(const string &name, const string &sequence)
 
 bool GenomeImpl::load(istream &genomeSource, vector<Genome> &genomes) {
   string line;
-  bool nameOrSequence = false; // true: name; false: sequence
+  bool nameOrSequence = false; // true: parsed name; false: parsed sequence
   string name, sequence;
   while (true) {
     getline(genomeSource, line);
@@ -57,6 +57,9 @@ bool GenomeImpl::load(istream &genomeSource, vector<Genome> &genomes) {
       if (nameOrSequence == true)
         sequence = "";
       nameOrSequence = false;
+      for (auto ch : line)
+        if (ch != 'A' && ch != 'T' && ch != 'C' && ch != 'G' && ch != 'N')
+          return false;
       sequence += line;
     }
   }
@@ -71,6 +74,7 @@ string GenomeImpl::name() const { return m_name; }
 
 bool GenomeImpl::extract(int pos, int len, string &fragment) const {
   if (pos + len > length())
+    // cannot extract beyond the end of the genome sequence
     return false;
   fragment = m_sequence.substr(pos, len);
   return true;

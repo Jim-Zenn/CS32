@@ -246,7 +246,7 @@ void showMenu() {
   cout << "         e - find matches exactly           q - quit" << endl;
 }
 
-int cli() {
+int main() {
   const int defaultMinSearchLength = 10;
 
   cout << "Welcome to the Gee-nomics test harness!" << endl;

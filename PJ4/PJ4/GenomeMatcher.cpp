@@ -77,13 +77,12 @@ int GenomeMatcherImpl::minimumSearchLength() const {
 bool GenomeMatcherImpl::findGenomesWithThisDNA(
     const string &fragment, int minimumLength, bool exactMatchOnly,
     vector<DNAMatch> &matches) const {
-  if (fragment.size() < minimumLength)
+  int const fragmentLength = static_cast<int>(fragment.size());
+  if (fragmentLength < minimumLength)
     return false;
   if (minimumLength < minimumSearchLength())
     return false;
   matches.clear();
-
-  int const fragmentLength = static_cast<int>(fragment.size());
   // use the first K-chars substring of the fragment as the key to search the
   // trie index, which gives us a collection of candidate genomes.
   // These candidates contains a K-char segment which matches first K-char
@@ -91,7 +90,7 @@ bool GenomeMatcherImpl::findGenomesWithThisDNA(
   string const key = fragment.substr(0, minimumSearchLength());
   vector<GenomeRef> candidateRefs = m_trie.find(key, exactMatchOnly);
   // filter these candidates
-  unordered_map<string, DNAMatch> matchMap;
+  unordered_map<string, DNAMatch> matchRecords;
   for (auto candidateRef : candidateRefs) {
     Genome const candidateGenome = m_library.at(candidateRef.index());
     int const matchPosition = candidateRef.position();
@@ -101,11 +100,15 @@ bool GenomeMatcherImpl::findGenomesWithThisDNA(
     // Notice that it is possible the tail length of the genome starting from
     // the match position is shorter than the fragment length.
     int const remainingLength = candidateGenome.length() - matchPosition;
+    if (remainingLength < minimumLength)
+      // the remaining Length is simply not long enough
+      continue;
     int const candidateSegmentLength = min(remainingLength, fragmentLength);
     candidateGenome.extract(matchPosition, candidateSegmentLength,
                             candidateSegment);
     // match the longest prefix between candidateSegment and fragment
-    int matchedLength = prefixMatch(candidateSegment, fragment, exactMatchOnly);
+    int const matchedLength =
+        prefixMatch(candidateSegment, fragment, exactMatchOnly);
     // if the matched prefix is long enough (greater than minimumLength)
     if (matchedLength >= minimumLength) {
       DNAMatch match;
@@ -114,20 +117,20 @@ bool GenomeMatcherImpl::findGenomesWithThisDNA(
       match.position = matchPosition;
       // check if there is already a segment in this genome that matches
       // this fragment
-      if (matchMap.find(candidateGenome.name()) == matchMap.end())
+      if (matchRecords.find(candidateGenome.name()) == matchRecords.end())
         // this is the first segment in this genome that matches the
         // given fragment; store this match
-        matchMap.emplace(candidateGenome.name(), match);
+        matchRecords.emplace(candidateGenome.name(), match);
       else {
         // there is already a segment in this genome that matches the
         // given fragment; in this case, store the longer segment match
-        DNAMatch existingMatch = matchMap.at(candidateGenome.name());
+        DNAMatch existingMatch = matchRecords.at(candidateGenome.name());
         if (existingMatch.length < matchedLength)
-          matchMap[candidateGenome.name()] = match;
+          matchRecords[candidateGenome.name()] = match;
       }
     }
   }
-  for (auto const &pair : matchMap)
+  for (auto const &pair : matchRecords)
     // store the all the matches found
     matches.push_back(pair.second);
   return !matches.empty();

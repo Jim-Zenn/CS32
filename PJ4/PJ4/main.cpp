@@ -13,7 +13,7 @@
 
 using namespace std;
 
-int main() {
+int test() {
   Trie<int> t;
   t.insert("ABCD", 1); // {1}
   t.insert("ABCD", 2); // {1, 2}
