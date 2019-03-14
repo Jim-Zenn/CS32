@@ -32,6 +32,7 @@ public:
 private:
   int prefixMatch(string const &a, string const &b,
                   bool const &exactMatchOnly) const;
+  // fragment genome into fragmentLength pieces
   vector<string> fragmentGenome(Genome const &genome,
                                 int const &fragmentLength) const;
   class GenomeRef {
@@ -178,9 +179,7 @@ bool GenomeMatcherImpl::findRelatedGenomes(const Genome &query,
 }
 
 vector<string> GenomeMatcherImpl::fragmentGenome(Genome const &genome,
-                                  int const &fragmentLength) const
-// fragment genome into fragmentLength pieces
-{
+                                  int const &fragmentLength) const {
   vector<string> fragments;
   for (int fragmentStart = 0; fragmentStart + fragmentLength <= genome.length();
        fragmentStart += fragmentLength) {
