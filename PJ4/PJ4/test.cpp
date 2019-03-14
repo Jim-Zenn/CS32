@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include <cassert>
 
 #include "Trie.h"
 #include "provided.h"
