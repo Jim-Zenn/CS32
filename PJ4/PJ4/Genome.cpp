@@ -36,35 +36,55 @@ GenomeImpl::GenomeImpl(const string &name, const string &sequence)
       m_length(static_cast<int>(sequence.size())) {}
 
 bool GenomeImpl::load(istream &genomeSource, vector<Genome> &genomes) {
+  // states:
+  // s0 file start
+  // s1 was name
+  // s2 was genome
+  genomes.clear();
+  int state = 0;
+  string name = "";
+  string seq = "";
   string line;
-  bool nameOrSequence = false; // true: parsed name; false: parsed sequence
-  string name, sequence;
-  while (true) {
-    getline(genomeSource, line);
-    if (line.empty())
-      break;
-    if (line[0] == '>') {
-      if (nameOrSequence == true)
-        // two consecutive lines of names
-        return false;
-      else if (!name.empty() && !sequence.empty())
-        genomes.push_back(Genome(name, sequence));
-      nameOrSequence = true;
-      name = line.substr(1);
-    } else {
-      if (name == "")
-        return false;
-      if (nameOrSequence == true)
-        sequence = "";
-      nameOrSequence = false;
-      for (auto ch : line)
-        if (ch != 'A' && ch != 'T' && ch != 'C' && ch != 'G' && ch != 'N')
+  while (getline(genomeSource, line)) {
+    switch (state) {
+      case 0:
+        if (line.at(0) == '>') {  // name
+          name = line.substr(1);
+          state = 1;
+        } else {  // sequence
           return false;
-      sequence += line;
+        }
+        break;
+      case 1:
+        if (line.at(0) == '>') {  // name
+          return false;
+        } else {  // sequence
+          for (auto ch : line)
+            if (ch != 'A' && ch != 'T' && ch != 'C' && ch != 'G' && ch != 'N')
+              return false;
+          seq += line;
+          state = 2;
+        }
+        break;
+      case 2:
+        if (line.at(0) == '>') {  // name
+          genomes.push_back(Genome(name, seq));
+          name = line.substr(1);
+          seq = "";
+          state = 1;
+        } else {  // sequence
+          for (auto ch : line)
+            if (ch != 'A' && ch != 'T' && ch != 'C' && ch != 'G' && ch != 'N')
+              return false;
+          seq += line;
+          state = 2;
+        }
+        break;
     }
   }
-  if (!name.empty() && !sequence.empty())
-    genomes.push_back(Genome(name, sequence));
+  if (!name.empty() && !seq.empty()) {
+    genomes.push_back(Genome(name, seq));
+  }
   return true;
 }
 
