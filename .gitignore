@@ -9,6 +9,9 @@ Playground/*
 **/.vscode
 **/.idea
 *.o
+.vim-template:cpp
+.vim-template:h
+.ycm_extra_conf.py
 
 # Xcode
 *.pbxuser
